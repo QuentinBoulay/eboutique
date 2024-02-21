@@ -16,3 +16,7 @@ body {
     width: 80%;
     margin: 0 auto;
 }
+
+.page-content {
+    padding: 70px 0;
+}

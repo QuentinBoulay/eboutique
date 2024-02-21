@@ -4,17 +4,82 @@
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .listing-products {
+        margin-top: 30px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .listing-products h2 {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .listing-products a {
+        text-decoration: none;
+        color: #fff;
+        background-color: #000;
+        padding: 20px;
+        margin: 10px;
+        flex: 1 1 300px;
+        position: relative;
+        transition: all 0.3s;
+        overflow: hidden;
+    }
+
+    .listing-products a:hover figure img {
+        tarnsform: scale(1.1);
+    }
+
+    .listing-products .content-product figure {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .listing-products .content-product .infos {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 20px;
+        width: 100%;
+        background-color: #fff;
+        color: #000;
+    }
+
+    .listing-products .content-product .price {
+        font-weight: bold;
+        text-align: right;
+        margin-top: 5px;
+    }
+
+    .listing-products .content-product .description {
+        margin: 10px 0 5px 0;
+    }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="page-content container">
+    <h1>HomePage</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/quent/Downloads/lp-sorbonne/php/eboutique/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>C:/Users/quent/Downloads/lp-sorbonne/php/eboutique/templates/home/index.html.twig</code></li>
-    </ul>
+    <div class="listing-products">
+        <h2>Produits disponibles</h2>
+        {% for product in products %}
+            {% if product.available %}
+                <a href="{{ path('app_product_show', { 'id' : product.id }) }}">
+                    <div class="content-product">
+                        <figure>
+                            <img src="{{ product.idMedia }}" alt="{{ product.name }}">
+                        </figure>
+                        <div class="infos">
+                            <h3>{{ product.name }}</h3>
+                            <p>{{ product.idCategory.name }}</p>
+                            <p class="description">{{ product.description }}</p>
+                            <p class="price">{{ product.priceHT }}€</p>
+                        </div>
+                    </div>
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
