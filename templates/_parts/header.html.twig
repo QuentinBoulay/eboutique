@@ -1,1 +1,64 @@
-{# templates/header.html.twig #}
+{# templates/_parts/header.html.twig #}
+
+{# Style #}
+<style>
+	#navbar {
+		background-color: #333;
+		color: #fff;
+		padding: 20px 0;
+	}
+
+	#navbar .container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.logo a {
+		color: #fff;
+		text-decoration: none;
+		font-size: 1.5rem;
+		font-weight: bold;
+	}
+
+	.nav-links {
+		list-style: none;
+		display: flex;
+		align-items: center;
+	}
+
+	.nav-links li a {
+		color: #fff;
+		text-decoration: none;
+		transition: color 0.3s ease;
+		padding: 8px;
+		margin-left: 20px;
+		display: block;
+	}
+
+	.nav-links li a:hover {
+		color: #ffcc00;
+	}
+</style>
+
+{# Content #}
+<header>
+	<nav id="navbar">
+		<div class="container">
+			<div class="logo">
+				<a href="{{ path('app_home') }}">Eboutique</a>
+			</div>
+			<ul class="nav-links">
+				<li>
+					<a href="{{ path('app_home') }}">Accueil</a>
+				</li>
+				<li>
+					<a href="{{ path('app_category_index') }}">Boutique</a>
+				</li>
+				<li>
+					<a href="{{ path('app_logout') }}">Déconnexion</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</header>
