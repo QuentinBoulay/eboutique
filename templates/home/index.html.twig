@@ -52,7 +52,6 @@
         text-decoration: none;
         color: #fff;
         background-color: #000;
-        padding: 20px;
         margin: 10px;
         flex: 1 1 300px;
         position: relative;
@@ -63,18 +62,29 @@
     }
 
     .listing-products a:hover {
-        transform: translateY(-3px);
         box-shadow: 0 10px 20px rgba(0,0,0,0.21), 0 6px 6px rgba(0,0,0,0.25);
     }
 
+    .listing-products a:hover .add-to-cart {
+        bottom: 20px;
+    }
+
     .listing-products a:hover figure img {
-        tarnsform: scale(1.1);
+        transform: scale(1.05);
+        transition: all 0.3s;
     }
 
     .listing-products .content-product figure {
         width: 100%;
-        height: 200px;
+        height: 400px;
         overflow: hidden;
+    }
+
+    .listing-products .content-product figure img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: bottom;
     }
 
     .listing-products .content-product .infos {
@@ -87,21 +97,39 @@
         color: #000;
     }
 
+    .listing-products .content-product .infos-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .listing-products .content-product .price {
+        font-weight: bold;
+        margin-top: 5px;
+        font-size: 1.2rem;
+    }
+
     .listing-products .content-product .category {
         background-color: #000;
         padding: 3px 5px;
         color: #fff;
-        margin: 5px 0 10px 0;
+        margin: 10px 0 0 0;
         display: block;
         width: fit-content;
         border-radius: 5px;
     }
 
-    .listing-products .content-product .price {
-        font-weight: bold;
-        text-align: right;
-        margin-top: 5px;
-        font-size: 1.2rem;
+    .listing-products .content-product .add-to-cart {
+        padding: 5px 10px;
+        position: absolute;
+        bottom: -40px;
+        right: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .listing-products .content-product .add-to-cart:hover {
+        color: #e1ba0c;
     }
 </style>
 
@@ -120,12 +148,15 @@
                 <a href="{{ path('app_product_show', { 'id' : product.id }) }}">
                     <div class="content-product">
                         <figure>
-                            <img src="{{ product.idMedia }}" alt="{{ product.name }}">
+                            <img src="https://cocktail-scandinave.fr/wp-content/uploads/2023/04/NISNFATACA140-amb.jpg" alt="{{ product.name }}">
                         </figure>
                         <div class="infos">
-                            <h3>{{ product.name }}</h3>
+                            <div class="infos-head">
+                                <h3>{{ product.name }}</h3>
+                                <p class="price">{{ product.priceHT }}€</p>
+                            </div>
                             <span class="category">{{ product.idCategory.name }}</span>
-                            <p class="price">{{ product.priceHT }}€</p>
+                            <span class="add-to-cart"><i class="fa-solid fa-cart-plus"></i>&nbsp;Ajouter au panier</span>
                         </div>
                     </div>
                 </a>
