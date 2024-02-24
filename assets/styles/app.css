@@ -1,7 +1,5 @@
 /* Reset des styles */
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
@@ -9,13 +7,36 @@
 body {
     font-family: Arial, sans-serif;
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-    width: 80%;
+    width: 87%;
     margin: 0 auto;
 }
 
 .page-content {
     padding: 70px 0;
+}
+
+/* Tableaux */
+.table-list {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+}
+
+.table-list thead {
+    background-color: #000000;
+    color: #fff;
+}
+
+.table-list tbody tr:nth-child(even) {
+    background-color: #eeeeee;
+}
+
+.table-list td, .table-list th {
+    padding: 10px 0;
+    text-align: center;
 }
