@@ -43,22 +43,13 @@
 
         .inputs-block > div label {
             margin-right: 15px;
+            width: 100px;
+            text-align: left;
         }
 
         button {
             margin-top: 30px;
-            padding: 8px 12px;
-            background-color: #000;
-            color: #fff;
-            border-radius: 5px;
-            border: 2px solid #000;
-            transition: all .3s;
             cursor: pointer;
-        }
-
-        button:hover {
-            background-color: transparent;
-            color: #000;
         }
     </style>
 
@@ -74,16 +65,16 @@
                 </div>
             {% endif %}
 
-            <h1 class="h3 mb-3 font-weight-normal">Veuillez vous connecter</h1>
+            <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
             
             <div class="inputs-block">
                 <div>
                     <label for="inputEmail">Email</label>
-                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="exemple@domaine.com" required autofocus>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="exemple@domaine.com..." required autofocus>
                 </div>
                 <div>
                     <label for="inputPassword">Mot de passe</label>
-                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="Votre mot de passe" required>
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="Votre mot de passe..." required>
                 </div>
             </div>
 
@@ -91,9 +82,10 @@
                 value="{{ csrf_token('authenticate') }}"
             >
 
-            <button class="btn btn-lg btn-primary" type="submit">
+            <button class="btn-black" type="submit">
                 Se connecter
             </button>
+            <a href="{{ path('app_register') }}" class="btn-no-border">S'inscrire</a>
         </form> 
     </div>
 {% endblock %}

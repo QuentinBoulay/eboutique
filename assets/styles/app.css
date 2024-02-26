@@ -20,6 +20,35 @@ body {
     padding: 70px 0;
 }
 
+/* Boutons */
+.btn-black {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #000;
+    transition: all .3s;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.btn-black:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.btn-no-border {
+    color: #000;
+    transition: all .3s;
+    text-decoration: none;
+    padding: 8px 12px;
+}
+
+.btn-no-border:hover {
+    text-decoration: underline;
+}
+
+
 /* Tableaux */
 .table-list {
     width: 100%;

@@ -20,6 +20,9 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Dupont...',
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a username',
@@ -30,6 +33,9 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('firstName', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Jean...',
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a first name',
@@ -40,6 +46,9 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('phone', TextType::class, [
+                'attr' => [
+                    'placeholder' => '01 02 03 04 05...',
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a phone number',
@@ -50,6 +59,9 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('email', EmailType::class, [
+                'attr' => [
+                    'placeholder' => 'exemple@domaine.com...',
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a email',
@@ -71,7 +83,10 @@ class RegistrationFormType extends AbstractType
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                    'placeholder' => 'Votre mot de passe...',
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
