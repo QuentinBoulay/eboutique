@@ -15,7 +15,11 @@
 
         .head-product img {
             width: 100%;
-            object-fit: contain
+            object-fit: contain;
+            margin-right: 10px;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 10px
         }
 
         .head-product .infos {
@@ -24,6 +28,8 @@
             border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.12), 0 6px 6px rgba(0,0,0,0.16);
             position: relative;
+            height: fit-content;
+            margin-left: 10px;
         }
 
         .head-product .infos p {
@@ -80,9 +86,19 @@
         }
     </style>
     <div class="page-content container">
+        {# ADMIN #}
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="admin-actions">
+                <p>Actions administrateur : </p>
+                <a href="{{ path('app_product_index') }}">Voir la liste des produits</a>
+                <a href="{{ path('app_product_edit', {'id': product.id}) }}">Modifier</a>
+            </div>
+        {% endif %}
+
+        {# PRODUIT #}
         <div class="head-product">
             <div class="col image">
-                <img src="" alt="{{ product.name }}">
+                <img src="https://cocktail-scandinave.fr/wp-content/uploads/2023/04/NISNFATACA140-amb.jpg" alt="{{ product.name }}">
             </div>
             <div class="col infos">
                 <h1>{{ product.name }}</h1>
@@ -100,9 +116,5 @@
             <h2>Description</h2>
             <p>{{ product.description }}</p>
         </div>
-
-        <a href="{{ path('app_product_index') }}">Voir la liste des produits</a>
-
-        <a href="{{ path('app_product_edit', {'id': product.id}) }}">Modifier</a>
     </div>
 {% endblock %}
