@@ -148,21 +148,7 @@
         <h2>Produits à la une</h2>
         {% for product in products %}
             {% if product.available %}
-                <a href="{{ path('app_product_show', { 'id' : product.id }) }}">
-                    <div class="content-product">
-                        <figure>
-                            <img src="https://cocktail-scandinave.fr/wp-content/uploads/2023/04/NISNFATACA140-amb.jpg" alt="{{ product.name }}">
-                        </figure>
-                        <div class="infos">
-                            <div class="infos-head">
-                                <h3>{{ product.name }}</h3>
-                                <p class="price">{{ product.priceHT }}€</p>
-                            </div>
-                            <span class="category">{{ product.idCategory.name }}</span>
-                            <span class="add-to-cart"><i class="fa-solid fa-cart-plus"></i>&nbsp;Ajouter au panier</span>
-                        </div>
-                    </div>
-                </a>
+                {% include '_parts/product-item.html.twig' %}
             {% endif %}
         {% endfor %}
     </div>
