@@ -4,101 +4,60 @@
 
 {% block body %}
 <style>
-    .listing-products {
-        margin-top: 30px;
+    h1 {
+        margin-bottom: 30px
+    }
+
+    .introduction {
+        margin-bottom: 50px;
+        max-width: 65%;
+    }
+
+    .layout-shop {
         display: flex;
         flex-wrap: wrap;
     }
 
-    .listing-products h2 {
-        width: 100%;
-        margin-bottom: 20px;
-    }
-
-    .listing-products a {
-        text-decoration: none;
-        color: #fff;
-        background-color: #000;
-        margin: 10px;
-        flex: 1 1 300px;
-        position: relative;
-        transition: all 0.3s;
-        overflow: hidden;
-        border-radius: 10px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.12), 0 6px 6px rgba(0,0,0,0.16);
-    }
-
-    .listing-products a:hover {
-        box-shadow: 0 10px 20px rgba(0,0,0,0.21), 0 6px 6px rgba(0,0,0,0.25);
-    }
-
-    .listing-products a:hover .add-to-cart {
-        bottom: 20px;
-    }
-
-    .listing-products a:hover figure img {
-        transform: scale(1.05);
-        transition: all 0.3s;
-    }
-
-    .listing-products .content-product figure {
-        width: 100%;
-        height: 400px;
-        overflow: hidden;
-        margin: 0;
-    }
-
-    .listing-products .content-product figure img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: bottom;
-    }
-
-    .listing-products .content-product .infos {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        padding: 20px;
-        width: 100%;
-        background-color: #fff;
-        color: #000;
-    }
-
-    .listing-products .content-product .infos-head {
+    .listing-products {
+        width: 77%;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-wrap: wrap;
+        padding-left: 25px;
     }
 
-    .listing-products .content-product .price {
-        font-weight: bold;
+    .filter-sidebar {
+        width: 23%;
+        padding: 20px;
         margin-top: 5px;
-        font-size: 1.2rem;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.12), 0 6px 6px rgba(0,0,0,0.16);
+        border-radius: 10px;
     }
 
-    .listing-products .content-product .category {
-        background-color: #000;
-        padding: 4px 5px;
-        font-size: 0.8rem;
-        color: #fff;
-        margin: 10px 0 0 0;
+    .filter-sidebar h2 {
+        margin-top: 0;
+        padding-bottom: 12px;
+        border-bottom: 1px solid lightgrey
+    }
+
+    .filter-sidebar ul {
+        padding: 0;
+        margin: 10px 0;
+    }
+
+    .filter-sidebar ul li {
+        list-style: none;
+    }
+
+    .filter-sidebar ul li a {
+        padding: 10px 0;
         display: block;
-        width: fit-content;
-        border-radius: 5px;
+        text-decoration: none;
+        color: #000;
+        transition: all .3s;
     }
 
-    .listing-products .content-product .add-to-cart {
-        padding: 5px 10px;
-        position: absolute;
-        bottom: -40px;
-        right: 10px;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-
-    .listing-products .content-product .add-to-cart:hover {
-        color: #e1ba0c;
+    .filter-sidebar ul li a:hover {
+        color: #ffcc00;
     }
 </style>
 
@@ -113,26 +72,31 @@
         </nav>
     {% endblock %}
     <h1>Boutique</h1>
-    <div class="listing-products">
-        {% for product in products %}
-            {% if product.available %}
-                <a href="{{ path('app_product_show', { 'id' : product.id }) }}">
-                    <div class="content-product">
-                        <figure>
-                            <img src="https://cocktail-scandinave.fr/wp-content/uploads/2023/04/NISNFATACA140-amb.jpg" alt="{{ product.name }}">
-                        </figure>
-                        <div class="infos">
-                            <div class="infos-head">
-                                <h3>{{ product.name }}</h3>
-                                <p class="price">{{ product.priceHT }}€</p>
-                            </div>
-                            <span class="category">{{ product.idCategory.name }}</span>
-                            <span class="add-to-cart"><i class="fa-solid fa-cart-plus"></i>&nbsp;Ajouter au panier</span>
-                        </div>
-                    </div>
-                </a>
-            {% endif %}
-        {% endfor %}
+    <p class="introduction">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce congue augue at eros porttitor varius. Nunc velit lectus, imperdiet nec ultrices at, sollicitudin semper justo. Duis maximus mi sit amet erat pellentesque, at aliquam odio varius. Duis vulputate lacus felis, quis pharetra turpis vehicula ullamcorper. Nulla et sagittis urna. Aliquam et hendrerit augue. Sed suscipit at quam non pulvinar. Nulla ultricies fermentum accumsan. Curabitur eu tortor felis. Aliquam accumsan facilisis dui, eu laoreet nisi efficitur et.</p>
+
+    <div class="layout-shop">
+        <div class="filter-sidebar">
+            <h2>Catégories</h2>
+            <div class="listing-categories">
+                <ul>
+                    {% if categories %}
+                        {% for category in categories %}
+                            <li>
+                                <a href="{{ path('app_category_show', { 'id' : category.id }) }}">{{ category.name }}</a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="listing-products">
+            {% for product in products %}
+                {% if product.available %}
+                    {% include '_parts/product-item.html.twig' %}
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}
