@@ -21,7 +21,7 @@ class ProductType extends AbstractType
             ->add('available')
             ->add('idCategory', EntityType::class, [
                 'class' => Category::class,
-'choice_label' => 'id',
+'choice_label' => 'name',
             ])
             ->add('idMedia', EntityType::class, [
                 'class' => Media::class,
