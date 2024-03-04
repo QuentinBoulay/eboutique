@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Service\BreadcrumbService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,10 +44,16 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
-    public function show(Product $product): Response
+    public function show(Product $product, BreadcrumbService $breadcrumbService): Response
     {
+
+        $breadcrumbService->add('Home', 'app_home');
+        $breadcrumbService->add('Shop', 'app_shop');
+        $breadcrumbService->add($product->getName(), 'app_product_show', ['id' => $product->getId()]);
+
         return $this->render('product/show.html.twig', [
             'product' => $product,
+            'breadcrumbs' => $breadcrumbService->getBreadcrumbs()
         ]);
     }
 

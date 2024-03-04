@@ -99,16 +99,23 @@
         .listing-products .content-product .add-to-cart:hover {
             color: #e1ba0c;
         }
+
+        .breadcrumb {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+        }
     </style>
 
     <div class="page-content container">
         {% block breadcrumb %}
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
+                <ul class="breadcrumb">
                     {% for breadcrumb in breadcrumbs %}
-                        <li class="breadcrumb-item"><a href="{{ path(breadcrumb.route) }}">{{ breadcrumb.title }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ path(breadcrumb.route, breadcrumb.arguments) }}"> {{ breadcrumb.title }}</a> </li>
                     {% endfor %}
-                </ol>
+                </ul>
             </nav>
         {% endblock %}
         <h1>{{ category.name }}</h1>

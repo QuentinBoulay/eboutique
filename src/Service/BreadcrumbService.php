@@ -6,11 +6,12 @@ class BreadcrumbService
 {
     private array $breadcrumbs = [];
 
-    public function add(string $title, string $route): void
+    public function add(string $title, string $route, array $arguments = []): void
     {
         $this->breadcrumbs[] = [
             'title' => $title,
-            'route' => $route
+            'route' => $route,
+            'arguments' => $arguments
         ];
     }
     public function getBreadcrumbs(): array
