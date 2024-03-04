@@ -145,7 +145,7 @@
 {# Contenu #}
 <div class="page-content container">
     <div class="listing-products">
-        <h2>Produits disponibles</h2>
+        <h2>Produits à la une</h2>
         {% for product in products %}
             {% if product.available %}
                 <a href="{{ path('app_product_show', { 'id' : product.id }) }}">
@@ -164,6 +164,24 @@
                     </div>
                 </a>
             {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="listing-products">
+        <h2>Nos catégories</h2>
+        {% for category in categories %}
+            <a href="{{ path('app_category_show', { 'id' : category.id }) }}">
+                <div class="content-product">
+                    <figure>
+                        <img src="https://cocktail-scandinave.fr/wp-content/uploads/2023/04/NISNFATACA140-amb.jpg" alt="{{ category.name }}">
+                    </figure>
+                    <div class="infos">
+                        <div class="infos-head">
+                            <h3>{{ category.name }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </a>
         {% endfor %}
     </div>
 </div>

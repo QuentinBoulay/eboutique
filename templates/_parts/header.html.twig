@@ -65,10 +65,10 @@
 					{# TODO : Mettre en place le panier #}
 					<a href="{{ path('app_home') }}">Panier</a>
 				</li>
-				<li>
-					<a href="{{ path('app_user_show', { 'id' : app.user.id }) }}">Mon compte</a>
-				</li>
             	{% if app.user %}
+					<li>
+						<a href="{{ path('app_user_show', { 'id' : app.user.id }) }}">Mon compte</a>
+					</li>
 					<li>
 						<a href="{{ path('app_logout') }}">Déconnexion</a>
 					</li>
