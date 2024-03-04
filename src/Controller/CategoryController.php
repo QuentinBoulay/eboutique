@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use App\Service\BreadcrumbService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,10 +44,15 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_category_show', methods: ['GET'])]
-    public function show(Category $category): Response
+    public function show(Category $category, BreadcrumbService $breadcrumbService): Response
     {
+        $breadcrumbService->add('Home', 'app_home');
+        $breadcrumbService->add($category->getName(), '/category/'.$category->getId());
+
         return $this->render('category/show.html.twig', [
             'category' => $category,
+            'products' => $category->getProducts(),
+            'breadcrumbs' => $breadcrumbService->getBreadcrumbs()
         ]);
     }
 

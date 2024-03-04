@@ -3,28 +3,135 @@
 {% block title %}Category{% endblock %}
 
 {% block body %}
-    <h1>Category</h1>
+    <style>
+        .listing-products {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+        }
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ category.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ category.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ category.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+        .listing-products h2 {
+            width: 100%;
+            margin-bottom: 20px;
+        }
 
-    <a href="{{ path('app_category_index') }}">back to list</a>
+        .listing-products a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #000;
+            margin: 10px;
+            position: relative;
+            transition: all 0.3s;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12), 0 6px 6px rgba(0,0,0,0.16);
+        }
 
-    <a href="{{ path('app_category_edit', {'id': category.id}) }}">edit</a>
+        .listing-products a:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.21), 0 6px 6px rgba(0,0,0,0.25);
+        }
 
-    {{ include('category/_delete_form.html.twig') }}
+        .listing-products a:hover .add-to-cart {
+            bottom: 20px;
+        }
+
+        .listing-products a:hover figure img {
+            transform: scale(1.05);
+            transition: all 0.3s;
+        }
+
+        .listing-products .content-product figure {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .listing-products .content-product figure img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: bottom;
+        }
+
+        .listing-products .content-product .infos {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 20px;
+            width: 100%;
+            background-color: #fff;
+            color: #000;
+        }
+
+        .listing-products .content-product .infos-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .listing-products .content-product .price {
+            font-weight: bold;
+            margin-top: 5px;
+            font-size: 1.2rem;
+        }
+
+        .listing-products .content-product .category {
+            background-color: #000;
+            padding: 4px 5px;
+            font-size: 0.8rem;
+            color: #fff;
+            margin: 10px 0 0 0;
+            display: block;
+            width: fit-content;
+            border-radius: 5px;
+        }
+
+        .listing-products .content-product .add-to-cart {
+            padding: 5px 10px;
+            position: absolute;
+            bottom: -40px;
+            right: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .listing-products .content-product .add-to-cart:hover {
+            color: #e1ba0c;
+        }
+    </style>
+
+    <div class="page-content container">
+        {% block breadcrumb %}
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    {% for breadcrumb in breadcrumbs %}
+                        <li class="breadcrumb-item"><a href="{{ path(breadcrumb.route) }}">{{ breadcrumb.title }}</a></li>
+                    {% endfor %}
+                </ol>
+            </nav>
+        {% endblock %}
+        <h1>{{ category.name }}</h1>
+        <div class="listing-products">
+            {% for product in products %}
+                {% if product.available %}
+                    <a href="{{ path('app_product_show', { 'id' : product.id }) }}">
+                        <div class="content-product">
+                            <figure>
+                                <img src="https://cocktail-scandinave.fr/wp-content/uploads/2023/04/NISNFATACA140-amb.jpg" alt="{{ product.name }}">
+                            </figure>
+                            <div class="infos">
+                                <div class="infos-head">
+                                    <h3>{{ product.name }}</h3>
+                                    <p class="price">{{ product.priceHT }}€</p>
+                                </div>
+                                <span class="category">{{ product.idCategory.name }}</span>
+                                <span class="add-to-cart"><i class="fa-solid fa-cart-plus"></i>&nbsp;Ajouter au panier</span>
+                            </div>
+                        </div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

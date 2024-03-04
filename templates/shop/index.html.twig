@@ -103,6 +103,15 @@
 </style>
 
 <div class="page-content container">
+    {% block breadcrumb %}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                    <li class="breadcrumb-item"><a href="{{ path(breadcrumb.route) }}">{{ breadcrumb.title }}</a></li>
+                {% endfor %}
+            </ol>
+        </nav>
+    {% endblock %}
     <h1>Boutique</h1>
     <div class="listing-products">
         {% for product in products %}
