@@ -64,21 +64,9 @@
             font-weight: normal;
         }
 
-        .head-product .infos .add-to-cart {
-            border-radius: 100px;
-            background-color: #e1ba0c;
-            color: #fff;
-            padding: 10px 15px;
-            display: block;
-            width: fit-content;
+        .head-product .infos .btn-gold {
             margin-top: 20px;
             margin-left: -5px;
-            cursor: pointer;
-            transition: all .3s;
-        }
-
-        .head-product .infos .add-to-cart:hover {
-            background-color: #d0aa00;
         }
 
         .description {
@@ -120,7 +108,7 @@
                 <p>Code produit : {{ product.id }}</p>
                 <p class="available">Disponibilité : {{ product.available ? 'En stock' : 'Sur commande' }}</p>
 
-                <span class="add-to-cart"><i class="fa-solid fa-cart-plus"></i>&nbsp;Ajouter au panier</span>
+                {{ include('product/_add_to_cart_form.html.twig') }}
             </div>
         </div>
         <div class="description">

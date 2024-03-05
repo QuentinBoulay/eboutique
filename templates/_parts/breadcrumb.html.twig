@@ -1,0 +1,9 @@
+{% block breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            {% for breadcrumb in breadcrumbs %}
+                <li class="breadcrumb-item"><a href="{{ path(breadcrumb.route) }}">{{ breadcrumb.title }}</a><span>/</span></li>
+            {% endfor %}
+        </ol>
+    </nav>
+{% endblock %}

@@ -65,6 +65,29 @@ body {
     color: #d52222;
 }
 
+.btn-gold {
+    display: inline-block;
+    background-color: #e7ba07;
+    color: #fff;
+    border: 2px solid #e7ba07;
+    transition: all .3s;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 60px;
+}
+
+.btn-gold:hover {
+    background-color: #fff;
+    color: #e7ba07;
+}
+
+.btn-gold i {
+    margin-right: 5px;
+}
+
 /* Tableaux */
 .table-list {
     width: 100%;

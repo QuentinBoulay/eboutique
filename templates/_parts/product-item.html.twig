@@ -80,6 +80,8 @@
         right: 10px;
         cursor: pointer;
         transition: all 0.3s;
+        z-index: 10;
+        pointer-events: all;
     }
 
     .product-item .content-product .add-to-cart:hover {
@@ -98,7 +100,10 @@
                 <p class="price">{{ product.priceHT }}€</p>
             </div>
             <span class="category">{{ product.idCategory.name }}</span>
-            <span class="add-to-cart"><i class="fa-solid fa-cart-plus"></i>&nbsp;Ajouter au panier</span>
+            
+            <div class="pointer-none">
+                {{ include('product/_add_to_cart_form.html.twig') }}
+            </div>
         </div>
     </div>
 </a>
