@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Order;
+use App\Entity\CustomerAddress;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,10 +25,20 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user): Response
+    public function show(User $user, EntityManagerInterface $entityManager): Response
     {
+        $address =  $entityManager->getRepository(CustomerAddress::class)->findBy(
+            ['idUser' => $user->getId()]
+        );
+
+        $orders =  $entityManager->getRepository(Order::class)->findBy(
+            ['idUser' => $user->getId()]
+        );
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            'address' => $address,
+            'orders' => $orders,
         ]);
     }
 

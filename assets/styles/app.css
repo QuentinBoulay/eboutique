@@ -48,6 +48,22 @@ body {
     text-decoration: underline;
 }
 
+.btn-danger {
+    background-color: #d52222;
+    color: #fff;
+    border: 2px solid #d52222;
+    transition: all .3s;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background-color: #fff;
+    color: #d52222;
+}
 
 /* Tableaux */
 .table-list {

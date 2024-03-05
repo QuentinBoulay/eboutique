@@ -3,39 +3,77 @@
 {% block title %}Mon compte{% endblock %}
 
 {% block body %}
+    <style>
+        h1 {
+            margin-bottom: 60px;
+        }
+        section {
+            margin-bottom: 40px;
+            border-bottom: 1px solid lightgrey;
+            padding-bottom: 40px;
+        }
+        #personal-information .btn-black {
+            margin-top: 20px;
+            display: inline-block;
+        }
+        #personal-address ul li {
+            margin-bottom: 10px;
+        }
+        #personal-address ul li a {
+            text-decoration: none;
+            color: #000;
+        }
+        #personal-address ul li a:hover {
+            text-decoration: underline;
+        }
+        #personal-order ul li {
+            margin-bottom: 10px;
+        }
+        #personal-order ul li a {
+            text-decoration: none;
+            color: #000;
+        }
+        #personal-order ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
     <div class="page-content container">
         <h1>Mon compte</h1>
 
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ user.id }}</td>
-                </tr>
-                <tr>
-                    <th>Prénom</th>
-                    <td>{{ user.firstName }}</td>
-                </tr>
-                <tr>
-                    <th>Nom</th>
-                    <td>{{ user.name }}</td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td>{{ user.email }}</td>
-                </tr>
-                <tr>
-                    <th>Roles</th>
-                    <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                </tr>
-                <tr>
-                    <th>Téléphone</th>
-                    <td>{{ user.phone }}</td>
-                </tr>
-            </tbody>
-        </table>
+        <section id="personal-information">
+            <h2>Mes informations personnelles</h2>
+            <p><strong>Numéro client : </strong>{{ user.id }}</p>
+            <p><strong>Prénom : </strong>{{ user.firstName }}</p>
+            <p><strong>Nom : </strong>{{ user.name }}</p>
+            <p><strong>Email : </strong>{{ user.email }}</p>
+            <p><strong>Roles : </strong>{{ user.roles ? (user.roles|json_encode == '["ROLE_USER"]' ? 'Utilisateur' : 'Administrateur') : '' }}</p>
+            <p><strong>Téléphone : </strong>{{ user.phone }}</p>
 
-        <a href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
+            <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn-black">Modifier mes informations personnelles</a>
+        </section>
+
+        <section id="personal-address">
+            <h2>Mes adresses enregistrées</h2>
+            {% if address %}
+                <ul>
+                    {% for a in address %}
+                        <li><a href="{{ path('app_customer_address_show', {'id': a.id}) }}">{{ a.type }} : {{ a.city }} {{ a.cp }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </section>
+
+        <section id="personal-order">
+            <h2>Mes commandes</h2>
+            {% if orders %}
+                <ul>
+                    {% for order in orders %}
+                        <li><a href="{{ path('app_order_show', {'id': order.id}) }}">Commande N°{{ order.OrderNumber }} - {{ order.valid ? 'Valide' : 'Non valide'}}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </section>
 
         {{ include('user/_delete_form.html.twig') }}
     </div>
