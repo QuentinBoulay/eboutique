@@ -42,7 +42,10 @@ class UserController extends AbstractController
         );
 
         $orders =  $entityManager->getRepository(Order::class)->findBy(
-            ['idUser' => $user->getId()]
+            [
+                'idUser' => $user->getId(),
+                'valid' => true
+            ]
         );
 
         return $this->render('user/show.html.twig', [
