@@ -9,9 +9,11 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -25,8 +27,13 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user, EntityManagerInterface $entityManager): Response
+    public function show(User $user, EntityManagerInterface $entityManager, Security $security): Response
     {
+        // Vérifie si l'utilisateur en cours est l'utilisateur ciblé
+        if ($security->getUser()->getId() !== $user->getId()) {
+            return $this->redirectToRoute('app_user_show', ['id' => $security->getUser()->getId()], Response::HTTP_SEE_OTHER);
+        }
+
         $address =  $entityManager->getRepository(CustomerAddress::class)->findBy(
             ['idUser' => $user->getId()]
         );
