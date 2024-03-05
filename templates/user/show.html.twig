@@ -61,6 +61,8 @@
                         <li><a href="{{ path('app_customer_address_show', {'id': a.id}) }}">{{ a.type }} : {{ a.city }} {{ a.cp }}</a></li>
                     {% endfor %}
                 </ul>
+            {% else %}
+                <p>Aucune adresse enregistrée</p>
             {% endif %}
         </section>
 
@@ -72,6 +74,8 @@
                         <li><a href="{{ path('app_order_show', {'id': order.id}) }}">Commande N°{{ order.OrderNumber }} - {{ order.valid ? 'Valide' : 'Non valide'}}</a></li>
                     {% endfor %}
                 </ul>
+            {% else %}
+                <p>Aucune commande effectuées</p>
             {% endif %}
         </section>
 
