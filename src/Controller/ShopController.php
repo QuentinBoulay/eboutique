@@ -16,8 +16,8 @@ class ShopController extends AbstractController
     #[Route('/shop', name: 'app_shop')]
     public function index(EntityManagerInterface $entityManager, BreadcrumbService $breadcrumbService): Response
     {
-        $breadcrumbService->add('Home', 'app_home');
-        $breadcrumbService->add('Shop', 'app_shop');
+        $breadcrumbService->add('Accueil', 'app_home');
+        $breadcrumbService->add('Boutique', 'app_shop');
 
         // Récupérer les produits depuis la base de données
         // Récupérer les produits et catégories depuis la base de données

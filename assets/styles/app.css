@@ -114,3 +114,31 @@ body {
     background-color: transparent;
     color: #fff;
 }
+
+/* Breadcrumb */
+.breadcrumb {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.breadcrumb span {
+    padding: 0 5px;
+}
+
+.breadcrumb li a {
+    color: #000;
+    text-decoration: none;
+}
+
+.breadcrumb li:last-child a {
+    color: grey;
+}
+
+.breadcrumb li:last-child span {
+    display: none;
+}
+
+.breadcrumb li a:hover {
+    text-decoration: underline;
+}

@@ -13,7 +13,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use App\Service\BreadcrumbService;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -27,8 +27,11 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user, EntityManagerInterface $entityManager, Security $security): Response
+    public function show(User $user, EntityManagerInterface $entityManager, Security $security, BreadcrumbService $breadcrumbService): Response
     {
+        $breadcrumbService->add('Accueil', 'app_home');
+        $breadcrumbService->add('Mon compte', 'app_user_show', ['id' => $user->getId()]);
+        
         // Vérifie si l'utilisateur en cours est l'utilisateur ciblé
         if ($security->getUser()->getId() !== $user->getId()) {
             return $this->redirectToRoute('app_user_show', ['id' => $security->getUser()->getId()], Response::HTTP_SEE_OTHER);
@@ -46,6 +49,7 @@ class UserController extends AbstractController
             'user' => $user,
             'address' => $address,
             'orders' => $orders,
+            'breadcrumbs' => $breadcrumbService->getBreadcrumbs()
         ]);
     }
 

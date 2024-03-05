@@ -3,50 +3,39 @@
 {% block title %}Adresse{% endblock %}
 
 {% block body %}
-    <h1>Adresse</h1>
+    <style>
+        .btn-black {
+            display: inline-block;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+    </style>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ customer_address.id }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ customer_address.type }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ customer_address.name }}</td>
-            </tr>
-            <tr>
-                <th>Prénom</th>
-                <td>{{ customer_address.firstName }}</td>
-            </tr>
-            <tr>
-                <th>Téléphone</th>
-                <td>{{ customer_address.phone }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ customer_address.address }}</td>
-            </tr>
-            <tr>
-                <th>Cp</th>
-                <td>{{ customer_address.cp }}</td>
-            </tr>
-            <tr>
-                <th>Ville</th>
-                <td>{{ customer_address.city }}</td>
-            </tr>
-            <tr>
-                <th>Pays</th>
-                <td>{{ customer_address.country }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="page-content container">
+        {% block breadcrumb %}
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    {% for breadcrumb in breadcrumbs %}
+                        <li class="breadcrumb-item"><a href="{{ path(breadcrumb.route, breadcrumb.arguments) }}">{{ breadcrumb.title }}</a><span>/</span></li>
+                    {% endfor %}
+                </ol>
+            </nav>
+        {% endblock %}
 
-    <a href="{{ path('app_customer_address_edit', {'id': customer_address.id}) }}">Modifier</a>
+        <h1>Adresse</h1>
 
-    {{ include('customer_address/_delete_form.html.twig') }}
+                <p><strong>Id : </strong>{{ customer_address.id }}</p>
+                <p><strong>Type : </strong>{{ customer_address.type }}</p>
+                <p><strong>Nom : </strong>{{ customer_address.name }}</p>
+                <p><strong>Prénom : </strong>{{ customer_address.firstName }}</p>
+                <p><strong>Téléphone : </strong>{{ customer_address.phone }}</p>
+                <p><strong>Adresse : </strong>{{ customer_address.address }}</p>
+                <p><strong>Cp : </strong>{{ customer_address.cp }}</p>
+                <p><strong>Ville : </strong>{{ customer_address.city }}</p>
+                <p><strong>Pays : </strong>{{ customer_address.country }}</p>
+
+        <a href="{{ path('app_customer_address_edit', {'id': customer_address.id}) }}" class="btn-black">Modifier l'adresse</a>
+
+        {{ include('customer_address/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

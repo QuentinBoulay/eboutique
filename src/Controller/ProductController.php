@@ -47,8 +47,8 @@ class ProductController extends AbstractController
     public function show(Product $product, BreadcrumbService $breadcrumbService): Response
     {
 
-        $breadcrumbService->add('Home', 'app_home');
-        $breadcrumbService->add('Shop', 'app_shop');
+        $breadcrumbService->add('Accueil', 'app_home');
+        $breadcrumbService->add('Boutique', 'app_shop');
         $breadcrumbService->add($product->getName(), 'app_product_show', ['id' => $product->getId()]);
 
         return $this->render('product/show.html.twig', [

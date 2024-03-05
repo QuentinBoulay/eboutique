@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Service\BreadcrumbService;
+use Symfony\Bundle\SecurityBundle\Security;
 
 #[Route('/customer/address')]
 class CustomerAddressController extends AbstractController
@@ -43,10 +45,15 @@ class CustomerAddressController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_customer_address_show', methods: ['GET'])]
-    public function show(CustomerAddress $customerAddress): Response
+    public function show(CustomerAddress $customerAddress, BreadcrumbService $breadcrumbService, Security $security): Response
     {
+        $breadcrumbService->add('Accueil', 'app_home');
+        $breadcrumbService->add('Mon compte', 'app_user_show', ['id' => $security->getUser()->getId()]);
+        $breadcrumbService->add($customerAddress->getType(), 'app_customer_address_show', ['id' => $customerAddress->getId()]);
+
         return $this->render('customer_address/show.html.twig', [
             'customer_address' => $customerAddress,
+            'breadcrumbs' => $breadcrumbService->getBreadcrumbs()
         ]);
     }
 

@@ -39,6 +39,17 @@
     </style>
 
     <div class="page-content container">
+
+        {% block breadcrumb %}
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    {% for breadcrumb in breadcrumbs %}
+                        <li class="breadcrumb-item"><a href="{{ path(breadcrumb.route, breadcrumb.arguments) }}">{{ breadcrumb.title }}</a><span>/</span></li>
+                    {% endfor %}
+                </ol>
+            </nav>
+        {% endblock %}
+
         <h1>Mon compte</h1>
 
         <section id="personal-information">
