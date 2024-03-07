@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\SecurityBundle\Security;
 
 #[Route('/order')]
 class OrderController extends AbstractController
@@ -43,8 +44,14 @@ class OrderController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_order_show', methods: ['GET'])]
-    public function show(Order $order): Response
+    public function show(Order $order, Security $security): Response
     {
+
+        // Vérifie si l'utilisateur en cours est l'utilisateur ciblé
+        if ($security->getUser()->getId() !== $order->getIdUser()->getId()) {
+            return $this->redirectToRoute('app_user_show', ['id' => $security->getUser()->getId()], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('order/show.html.twig', [
             'order' => $order,
         ]);

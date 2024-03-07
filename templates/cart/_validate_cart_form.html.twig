@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_cart_validate', {'id': basket.id}) }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('validate_cart' ~ basket.id) }}">
+    <button type="submit" class="btn-gold"><i class="fa-solid fa-cart-plus"></i>&nbsp;Commander</button>
+</form>

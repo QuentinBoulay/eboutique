@@ -56,10 +56,8 @@
             {% endfor %}
             <div class="basket-total">
                 <h2>Total : {{ basket.totalPrice }} €</h2>
-                <form method="post" action="{{ path('app_cart_validate', {'id': basket.id}) }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token('validate_cart' ~ basket.id) }}">
-                    <button type="submit" class="btn-gold"><i class="fa-solid fa-cart-plus"></i>&nbsp;Commander</button>
-                </form>
+
+                {{ include('cart/_validate_cart_form.html.twig') }}
             </div>
         {% else %}
             <div class="cart-empty">
