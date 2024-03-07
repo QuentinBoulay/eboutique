@@ -31,8 +31,20 @@ class CartController extends AbstractController
             ]
         );
 
-        $basketDetails = $basket->getCommandLines();
+        $basketDetails = null;
 
+        if ($basket) {
+            // Récupérer les détails du panier
+            $basketDetails = $basket->getCommandLines();
+            $basket->totalPrice = 0;
+            
+            foreach ($basketDetails as $key => $value) {
+                $product = $value->getIdProduct();
+                $basketDetails[$key]->product = $product;
+                $basket->totalPrice += $product->getPriceHT() * $value->getQuantity();
+            }
+        }
+            
         return $this->render('cart/index.html.twig', [
             'controller_name' => 'CartController',
             'basket' => $basket,
@@ -53,19 +65,35 @@ class CartController extends AbstractController
                 ]
             );
 
-            // Vérifier si le produit est déjà dans le panier
-            $basketDetails = $basket->getCommandLines();
-            $productInBasket = false;
-            foreach ($basketDetails as $basketDetail) {
-                if ($basketDetail->getIdProduct() == $product) {
-                    $productInBasket = true;
-                    $basketDetail->setQuantity($basketDetail->getQuantity() + 1);
+            if ($basket) {
+                // Vérifier si le produit est déjà dans le panier
+                $basketDetails = $basket->getCommandLines();
+                $productInBasket = false;
+                foreach ($basketDetails as $basketDetail) {
+                    if ($basketDetail->getIdProduct() == $product) {
+                        $productInBasket = true;
+                        $basketDetail->setQuantity($basketDetail->getQuantity() + 1);
+                        $entityManager->persist($basketDetail);
+                    }
+                }
+
+                // Si le produit n'est pas dans le panier, on l'ajoute
+                if (!$productInBasket) {
+                    $basketDetail = new CommandLine();
+                    $basketDetail->setIdProduct($product);
+                    $basketDetail->setQuantity(1);
+                    $basketDetail->setIdOrder($basket);
                     $entityManager->persist($basketDetail);
                 }
-            }
+            } else {
+                // Si l'utilisateur n'a pas de panier, on en crée un
+                $basket = new Order();
+                $basket->setIdUser($this->getUser());
+                $basket->setValid(false);
+                $basket->setOrderNumber(uniqid());
+                $basket->setDateTime(new \DateTime());
+                $entityManager->persist($basket);
 
-            // Si le produit n'est pas dans le panier, on l'ajoute
-            if (!$productInBasket) {
                 $basketDetail = new CommandLine();
                 $basketDetail->setIdProduct($product);
                 $basketDetail->setQuantity(1);
@@ -75,6 +103,19 @@ class CartController extends AbstractController
 
             $entityManager->flush();
         }
+
+        return $this->redirectToRoute('app_cart'); 
+    }
+
+    #[Route('/cart/{id}', name: 'app_cart_validate', methods: ['POST'])]
+    public function validateCart(Request $request, Order $order, EntityManagerInterface $entityManager): Response
+    {
+        // Logique pour ajouter l'article au panier
+        if ($this->isCsrfTokenValid('validate_cart'.$order->getId(), $request->request->get('_token'))) {
+            $order->setValid(true);
+            $entityManager->persist($order);
+            $entityManager->flush();
+        }   
 
         return $this->redirectToRoute('app_cart'); 
     }

@@ -4,14 +4,68 @@
 
 {% block body %}
     <style>
+        .card-product {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12), 0 6px 6px rgba(0,0,0,0.16);
+            border-radius: 10px;
+        }
+
+        .product-info {
+            display: flex;
+        }
+
+        .product-info img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .cart-empty {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .cart-empty .btn-black {
+            display: inline-block;
+            margin-top: 10px;
+        }
     </style>
 
     <div class="page-content container">
         <h1>Mon panier</h1>
 
         {% if basket %}
-            {{ dump(basket) }}
-            {{ dump(basketDetails) }}
+            {% for item in basketDetails %}
+                <div class="card-product">
+                    <div class="product-info">
+                        <img src="https://cocktail-scandinave.fr/wp-content/uploads/2023/04/NISNFATACA140-amb.jpg" alt="{{ item.product.name }}" class="img-fluid">
+                        <div>
+                            <h2>{{ item.product.name }}</h2>
+                            <p>Quantité : {{ item.quantity }}</p>
+                        </div>
+                    </div>
+                    <div class="product-price">
+                        <p><strong>{{ item.product.priceHT * item.quantity }} €</strong></p>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="basket-total">
+                <h2>Total : {{ basket.totalPrice }} €</h2>
+                <form method="post" action="{{ path('app_cart_validate', {'id': basket.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('validate_cart' ~ basket.id) }}">
+                    <button type="submit" class="btn-gold"><i class="fa-solid fa-cart-plus"></i>&nbsp;Commander</button>
+                </form>
+            </div>
+        {% else %}
+            <div class="cart-empty">
+                <p>Votre panier ne contient actuellement aucun article</p>
+                <a href="{{ path('app_shop') }}" class="btn-black">Voir la boutique</a>
+            </div>
         {% endif %}
         
     </div>
