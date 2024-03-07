@@ -38,10 +38,12 @@ class CartController extends AbstractController
             $basketDetails = $basket->getCommandLines();
             $basket->totalPrice = 0;
             
-            foreach ($basketDetails as $key => $value) {
-                $product = $value->getIdProduct();
-                $basketDetails[$key]->product = $product;
-                $basket->totalPrice += $product->getPriceHT() * $value->getQuantity();
+            if ($basketDetails) {
+                foreach ($basketDetails as $key => $value) {
+                    $product = $value->getIdProduct();
+                    $basketDetails[$key]->product = $product;
+                    $basket->totalPrice += $product->getPriceHT() * $value->getQuantity();
+                }
             }
         }
             
@@ -107,7 +109,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute('app_cart'); 
     }
 
-    #[Route('/cart/{id}', name: 'app_cart_validate', methods: ['POST'])]
+    #[Route('/validate/{id}', name: 'app_cart_validate', methods: ['POST'])]
     public function validateCart(Request $request, Order $order, EntityManagerInterface $entityManager): Response
     {
         // Logique pour ajouter l'article au panier
@@ -120,4 +122,26 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute('app_cart'); 
     }
+
+    #[Route('/empty/{id}', name: 'app_cart_empty', methods: ['POST'])]
+    public function emptyCart(Request $request, Order $order, EntityManagerInterface $entityManager): Response
+    {
+        // Logique pour retirer tous les articles du panier
+        if ($this->isCsrfTokenValid('empty_cart'.$order->getId(), $request->request->get('_token'))) {
+            $orderDetails = $order->getCommandLines();
+            if (!empty($orderDetails)) {
+                foreach ($orderDetails as $orderDetail) {
+                    $order->removeCommandLine($orderDetail);
+                    $entityManager->remove($orderDetail);
+                }
+                $entityManager->flush();
+            }
+        } else {
+            throw new \Exception('Invalid CSRF token.');
+        }
+
+        return $this->redirectToRoute('app_cart');
+    }
+
+    
 }

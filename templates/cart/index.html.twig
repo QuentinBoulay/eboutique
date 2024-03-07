@@ -18,20 +18,45 @@
             margin-top: 50px;
             text-align: right;
         }
+        .remove-cart-items {
+            display: block;
+            width: fit-content;
+            margin: 0 0 0 auto;
+        }
+        .basket-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
     </style>
 
     <div class="page-content container">
-        <h1>Mon panier</h1>
+        <div class="basket-head">
+            <h1>Mon panier</h1>
+            {% if basket %}
+                {% if basket.totalPrice %}
+                    {{ include('cart/_empty_cart_form.html.twig') }}
+                {% endif %}
+            {% endif %}
+        </div>
 
         {% if basket %}
-            {% for item in basketDetails %}
-                {% include('_parts/product-item-cart.html.twig') %}
-            {% endfor %}
-            <div class="basket-total">
-                <h2>Total : {{ basket.totalPrice }} €</h2>
+            {% if basket.totalPrice %}
+                {% for item in basketDetails %}
+                    {% include('_parts/product-item-cart.html.twig') %}
+                {% endfor %}
+                <div class="basket-total">
+                    <h2>Total : {{ basket.totalPrice }} €</h2>
 
-                {{ include('cart/_validate_cart_form.html.twig') }}
-            </div>
+                    {{ include('cart/_validate_cart_form.html.twig') }}
+                </div>
+            {% else %}
+                <div class="cart-empty">
+                    <p>Votre panier ne contient actuellement aucun article</p>
+                    <a href="{{ path('app_shop') }}" class="btn-black">Voir la boutique</a>
+                </div>
+            {% endif %}
         {% else %}
             <div class="cart-empty">
                 <p>Votre panier ne contient actuellement aucun article</p>

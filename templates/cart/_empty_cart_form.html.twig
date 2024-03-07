@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_cart_empty', {'id': basket.id}) }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('empty_cart' ~ basket.id) }}">
+    <button type="submit" class="btn-outline remove-cart-items">Vider le panier</button>
+</form>
