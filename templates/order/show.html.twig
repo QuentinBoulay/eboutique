@@ -3,28 +3,46 @@
 {% block title %}Order{% endblock %}
 
 {% block body %}
-    <div class="page-content container">
-        <h1>Order</h1>
+    <style>
+        h1 {
+            margin-bottom: 50px;
+        }
+        #order-content {
+            margin-top: 50px;
+        }
+        .order-total {
+            margin-top: 50px;
+            text-align: right;
+        }
+    </style>
 
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ order.id }}</td>
-                </tr>
-                <tr>
-                    <th>OrderNumber</th>
-                    <td>{{ order.orderNumber }}</td>
-                </tr>
-                <tr>
-                    <th>Valid</th>
-                    <td>{{ order.valid ? 'Yes' : 'No' }}</td>
-                </tr>
-                <tr>
-                    <th>DateTime</th>
-                    <td>{{ order.dateTime ? order.dateTime|date('Y-m-d H:i:s') : '' }}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="page-content container">
+        {# Breadcrumb #}
+        {% block breadcrumb %}
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    {% for breadcrumb in breadcrumbs %}
+                        <li class="breadcrumb-item"><a href="{{ path(breadcrumb.route, breadcrumb.arguments) }}">{{ breadcrumb.title }}</a><span>/</span></li>
+                    {% endfor %}
+                </ol>
+            </nav>
+        {% endblock %}
+
+        <h1>Commande N°{{ order.id }}</h1>
+
+        <p><strong>N° de la commande : </strong>{{ order.orderNumber }}</p>
+        <p><strong>Statut de la commande : </strong>{{ order.valid ? 'Validée' : 'Panier' }}</p>
+        <p><strong>Date de commande :</strong>{{ order.dateTime ? order.dateTime|date('Y-m-d H:i:s') : '' }}</p>
+
+        <section id="order-content">
+            <h2>Produits</h2>
+            {% for item in orderDetails %}
+                {% include('_parts/product-item-cart.html.twig') %}
+            {% endfor %}
+
+            <div class="order-total">
+                <h2>Total : {{ order.totalPrice }} €</h2>
+            </div>
+        </section>
     </div>
 {% endblock %}

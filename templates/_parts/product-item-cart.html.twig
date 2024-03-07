@@ -1,0 +1,14 @@
+<div class="card-product">
+	<div class="product-info">
+		<img src="https://cocktail-scandinave.fr/wp-content/uploads/2023/04/NISNFATACA140-amb.jpg" alt="{{ item.product.name }}" class="img-fluid">
+		<div>
+			<h2>{{ item.product.name }}</h2>
+			<p>Quantité : {{ item.quantity }}</p>
+		</div>
+	</div>
+	<div class="product-price">
+		<p>
+			<strong>{{ item.product.priceHT * item.quantity }} €</strong>
+		</p>
+	</div>
+</div>

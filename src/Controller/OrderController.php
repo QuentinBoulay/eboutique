@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\SecurityBundle\Security;
+use App\Service\BreadcrumbService;
 
 #[Route('/order')]
 class OrderController extends AbstractController
@@ -44,16 +45,35 @@ class OrderController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_order_show', methods: ['GET'])]
-    public function show(Order $order, Security $security): Response
+    public function show(Order $order, Security $security, BreadcrumbService $breadcrumbService): Response
     {
-
         // Vérifie si l'utilisateur en cours est l'utilisateur ciblé
         if ($security->getUser()->getId() !== $order->getIdUser()->getId()) {
             return $this->redirectToRoute('app_user_show', ['id' => $security->getUser()->getId()], Response::HTTP_SEE_OTHER);
         }
 
+        // Breadcrumb
+        $breadcrumbService->add('Accueil', 'app_home');
+        $breadcrumbService->add('Mon compte', 'app_user_show', ['id' => $security->getUser()->getId()]);
+        $breadcrumbService->add('Commande N°' . $order->getOrderNumber(), 'app_order_show', ['id' => $order->getId()]);
+
+        // Récupération des items de la commande
+        if ($order) {
+            // Récupérer les détails du panier
+            $orderDetails = $order->getCommandLines();
+            $order->totalPrice = 0;
+            
+            foreach ($orderDetails as $key => $value) {
+                $product = $value->getIdProduct();
+                $orderDetails[$key]->product = $product;
+                $order->totalPrice += $product->getPriceHT() * $value->getQuantity();
+            }
+        }
+
         return $this->render('order/show.html.twig', [
             'order' => $order,
+            'orderDetails' => $orderDetails,
+            'breadcrumbs' => $breadcrumbService->getBreadcrumbs()
         ]);
     }
 
