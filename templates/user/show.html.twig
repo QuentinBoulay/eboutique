@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon compte{% endblock %}
+{% block title %}{{user.firstName}} {{user.name}} | Mon compte{% endblock %}
 
 {% block body %}
     <style>
@@ -82,7 +82,7 @@
             {% if orders %}
                 <ul>
                     {% for order in orders %}
-                        <li><a href="{{ path('app_order_show', {'id': order.id}) }}">Commande N°{{ order.OrderNumber }} - {{ order.valid ? 'Valide' : 'Non valide'}}</a></li>
+                        <li><a href="{{ path('app_order_show', {'id': order.id}) }}">Commande N°{{ order.OrderNumber }}</a></li>
                     {% endfor %}
                 </ul>
             {% else %}

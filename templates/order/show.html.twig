@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Order{% endblock %}
+{% block title %}Commande N°{{order.orderNumber}}{% endblock %}
 
 {% block body %}
     <style>
@@ -32,7 +32,7 @@
 
         <p><strong>N° de la commande : </strong>{{ order.orderNumber }}</p>
         <p><strong>Statut de la commande : </strong>{{ order.valid ? 'Validée' : 'Panier' }}</p>
-        <p><strong>Date de commande :</strong>{{ order.dateTime ? order.dateTime|date('Y-m-d H:i:s') : '' }}</p>
+        <p><strong>Date de commande : </strong>{{ order.dateTime ? order.dateTime|date('Y-m-d H:i:s') : '' }}</p>
 
         <section id="order-content">
             <h2>Produits</h2>

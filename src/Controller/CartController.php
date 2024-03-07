@@ -113,6 +113,7 @@ class CartController extends AbstractController
         // Logique pour ajouter l'article au panier
         if ($this->isCsrfTokenValid('validate_cart'.$order->getId(), $request->request->get('_token'))) {
             $order->setValid(true);
+            $order->setDateTime(new \DateTime());
             $entityManager->persist($order);
             $entityManager->flush();
         }   

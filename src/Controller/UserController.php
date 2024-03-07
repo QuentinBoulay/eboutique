@@ -33,7 +33,7 @@ class UserController extends AbstractController
         $breadcrumbService->add('Mon compte', 'app_user_show', ['id' => $user->getId()]);
         
         // Vérifie si l'utilisateur en cours est l'utilisateur ciblé
-        if ($security->getUser()->getId() !== $user->getId()) {
+        if ($security->getUser()->getId() !== $user->getId() && !$security->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_user_show', ['id' => $security->getUser()->getId()], Response::HTTP_SEE_OTHER);
         }
 

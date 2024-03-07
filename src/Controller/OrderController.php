@@ -48,7 +48,7 @@ class OrderController extends AbstractController
     public function show(Order $order, Security $security, BreadcrumbService $breadcrumbService): Response
     {
         // Vérifie si l'utilisateur en cours est l'utilisateur ciblé
-        if ($security->getUser()->getId() !== $order->getIdUser()->getId()) {
+        if ($security->getUser()->getId() !== $order->getIdUser()->getId() && !$security->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_user_show', ['id' => $security->getUser()->getId()], Response::HTTP_SEE_OTHER);
         }
 

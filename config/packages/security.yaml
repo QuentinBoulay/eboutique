@@ -39,6 +39,7 @@ security:
     access_control:
         - { route: app_category_show, roles: PUBLIC_ACCESS }
         - { path: ^/category, roles: ROLE_ADMIN }
+        - { route: app_order_show, roles: PUBLIC_ACCESS }
         - { path: ^/order, roles: ROLE_ADMIN }
         - { route: app_product_show, roles: PUBLIC_ACCESS }
         - { path: ^/product, roles: ROLE_ADMIN }
