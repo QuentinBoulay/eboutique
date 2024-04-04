@@ -4,16 +4,16 @@
 
 {% block body %}
     <div class="page-content container">
-        <h1>Order index</h1>
+        <h1>Commande</h1>
 
         <table class="table-list">
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>OrderNumber</th>
-                    <th>Valid</th>
-                    <th>DateTime</th>
-                    <th>actions</th>
+                    <th>Numéro de commande</th>
+                    <th>Commande validée</th>
+                    <th>Date</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,21 +21,21 @@
                 <tr>
                     <td>{{ order.id }}</td>
                     <td>{{ order.orderNumber }}</td>
-                    <td>{{ order.valid ? 'Yes' : 'No' }}</td>
+                    <td>{{ order.valid ? 'Oui' : 'Non' }}</td>
                     <td>{{ order.dateTime ? order.dateTime|date('Y-m-d H:i:s') : '' }}</td>
                     <td>
-                        <a href="{{ path('app_order_show', {'id': order.id}) }}">show</a>
-                        <a href="{{ path('app_order_edit', {'id': order.id}) }}">edit</a>
+                        <a href="{{ path('app_order_show', {'id': order.id}) }}">Voir</a>
+                        <a href="{{ path('app_order_edit', {'id': order.id}) }}">Modifier</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="5">no records found</td>
+                    <td colspan="5">Aucune commande trouvée</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <a href="{{ path('app_order_new') }}">Create new</a>
+        <a href="{{ path('app_order_new') }}">Créer une nouvelle commande</a>
     </div>
 {% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+<style>
+    .section-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .section-list li a {
+        display: block;
+        padding: 15px;
+        color: #000;
+        text-decoration: none;
+        transition: all 0.3s;
+        border-bottom: 1px solid #f4f4f4;
+        position: relative;
+    }
+
+     .section-list li a::after {
+        content: '>';
+        position: absolute;
+        right: 15px;
+    }
+
+    .section-list li a:hover {
+        background-color: #f4f4f4;
+    }
+</style>
+
+{# Contenu #}
+<div class="page-content container">
+    <h1>Dashboard d'administration</h1>
+    
+    <ul class="section-list">
+        <li><a href="{{ path('app_product_index') }}">Gestion des produits</a></li>
+        <li><a href="{{ path('app_category_index') }}">Gestion des catégories</a></li>
+        <li><a href="{{ path('app_media_index') }}">Gestion des médias</a></li>
+        <li><a href="{{ path('app_user_index') }}">Gestion des utilisateurs</a></li>
+        <li><a href="{{ path('app_order_index') }}">Gestion des commandes</a></li>
+        <li><a href="{{ path('app_customer_address_index') }}">Gestion des adresses client</a></li>
+    </ul>
+</div>
+{% endblock %}
