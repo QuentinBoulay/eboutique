@@ -51,7 +51,14 @@ class ProductController extends AbstractController
         $breadcrumbService->add('Boutique', 'app_shop');
         $breadcrumbService->add($product->getName(), 'app_product_show', ['id' => $product->getId()]);
 
+        if ($product->getIdMedia() === null) {
+            $media = "https://static.thenounproject.com/png/3022241-200.png";
+        } else {
+            $media = $product->getIdMedia()->getPath();
+        }
+
         return $this->render('product/show.html.twig', [
+            'media' => $media,
             'product' => $product,
             'breadcrumbs' => $breadcrumbService->getBreadcrumbs()
         ]);

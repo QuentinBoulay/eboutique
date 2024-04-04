@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Media index{% endblock %}
+
+
+{% block body %}
+    <div class="page-content container">
+        <h1>Liste des médias</h1>
+
+        <table class="table-list">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Type</th>
+                    <th>Path</th>
+                    <th>Alt</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for medium in media %}
+                <tr>
+                    <td>{{ medium.id }}</td>
+                    <td>{{ medium.type }}</td>
+                    <td>{{ medium.path }}</td>
+                    <td>{{ medium.alt }}</td>
+                    <td>
+                        <a href="{{ path('app_media_show', {'id': medium.id}) }}">Voir</a>
+                        <a href="{{ path('app_media_edit', {'id': medium.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_media_new') }}">Create new</a>
+
+    </div>
+{% endblock %}

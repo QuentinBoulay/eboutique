@@ -19,10 +19,18 @@ class ShopController extends AbstractController
         $breadcrumbService->add('Accueil', 'app_home');
         $breadcrumbService->add('Boutique', 'app_shop');
 
-        // Récupérer les produits depuis la base de données
         // Récupérer les produits et catégories depuis la base de données
         $products = $entityManager->getRepository(Product::class)->findAll();
         $categories = $entityManager->getRepository(Category::class)->findAll();
+
+        // Ajouter le chemin de l'image pour chaque produit
+        foreach ($products as $product) {
+            if ($product->getIdMedia() === null) {
+                $product->media = "https://static.thenounproject.com/png/3022241-200.png";
+            } else {
+                $product->media = $product->getIdMedia()->getPath();
+            }
+        }
 
         return $this->render('shop/index.html.twig', [
             'controller_name' => 'ShopController',

@@ -16,6 +16,15 @@ class HomeController extends AbstractController
     {
         // Récupérer les produits et catégories depuis la base de données
         $products = $entityManager->getRepository(Product::class)->findAll();
+
+        foreach ($products as $product) {
+            if ($product->getIdMedia() === null) {
+                $product->media = "https://static.thenounproject.com/png/3022241-200.png";
+            } else {
+                $product->media = $product->getIdMedia()->getPath();
+            }
+        }
+
         $categories = $entityManager->getRepository(Category::class)->findAll();
 
         return $this->render('home/index.html.twig', [

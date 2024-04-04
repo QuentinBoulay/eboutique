@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification d'un média{% endblock %}
+
+{% block body %}
+    <div class="page-content container">
+        <h1>Modification d'un média</h1>
+
+        {{ include('media/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <a href="{{ path('app_media_index') }}">Retour à la liste</a>
+
+        {{ include('media/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

@@ -3,7 +3,6 @@
     .product-item {
         text-decoration: none;
         color: #fff;
-        background-color: #000;
         margin: 10px;
         flex: 1 1 300px;
         position: relative;
@@ -92,7 +91,7 @@
 <a href="{{ path('app_product_show', { 'id' : product.id }) }}" class="product-item">
     <div class="content-product">
         <figure>
-            <img src="https://cocktail-scandinave.fr/wp-content/uploads/2023/04/NISNFATACA140-amb.jpg" alt="{{ product.name }}">
+            <img src="{{ product.media }}" alt="{{ product.name }}">
         </figure>
         <div class="infos">
             <div class="infos-head">

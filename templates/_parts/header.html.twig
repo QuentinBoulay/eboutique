@@ -61,13 +61,18 @@
 					<a href="{{ path('app_shop') }}">Boutique</a>
 				</li>
 				<li>
-					{# TODO : Mettre en place le panier #}
 					<a href="{{ path('app_cart') }}">Panier</a>
 				</li>
             	{% if app.user %}
 					<li>
 						<a href="{{ path('app_user_show', { 'id' : app.user.id }) }}">Mon compte</a>
 					</li>
+        			{% if is_granted('ROLE_ADMIN') %}
+						<li>
+							{# TODO : Administration #}
+							<a href="">Administration</a>
+						</li>
+            		{% endif %}
 					<li>
 						<a href="{{ path('app_logout') }}">Déconnexion</a>
 					</li>

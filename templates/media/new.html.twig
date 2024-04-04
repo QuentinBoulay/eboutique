@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau média{% endblock %}
+
+{% block body %}
+    <div class="page-content container">
+        <h1>Création d'un nouveau média</h1>
+
+        {{ include('media/_form.html.twig') }}
+
+        <a href="{{ path('app_media_index') }}">Retour à la liste</a>
+    </div>
+{% endblock %}
