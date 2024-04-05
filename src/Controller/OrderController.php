@@ -65,6 +65,13 @@ class OrderController extends AbstractController
             
             foreach ($orderDetails as $key => $value) {
                 $product = $value->getIdProduct();
+
+                if ($product->getIdMedia() === null) {
+                    $product->media = "https://static.thenounproject.com/png/3022241-200.png";
+                } else {
+                    $product->media = $product->getIdMedia()->getPath();
+                }
+
                 $orderDetails[$key]->product = $product;
                 $order->totalPrice += $product->getPriceHT() * $value->getQuantity();
             }

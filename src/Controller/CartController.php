@@ -41,6 +41,13 @@ class CartController extends AbstractController
             if ($basketDetails) {
                 foreach ($basketDetails as $key => $value) {
                     $product = $value->getIdProduct();
+
+                    if ($product->getIdMedia() === null) {
+                        $product->media = "https://static.thenounproject.com/png/3022241-200.png";
+                    } else {
+                        $product->media = $product->getIdMedia()->getPath();
+                    }
+
                     $basketDetails[$key]->product = $product;
                     $basket->totalPrice += $product->getPriceHT() * $value->getQuantity();
                 }

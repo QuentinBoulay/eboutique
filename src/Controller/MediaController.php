@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Media;
+use App\Entity\Product;
+use App\Entity\Category;
 use App\Form\MediaType;
 use App\Repository\MediaRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,6 +32,21 @@ class MediaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Récupération du champ file du formulaire
+            $file = $form->get('file')->getData();
+
+            // Génération d'un nom de fichier unique
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+            // Déplacement du fichier dans le répertoire de destination
+            $file->move(
+                $this->getParameter('kernel.project_dir').'/public/uploads/',
+                $fileName
+            );
+            
+            // Mise à jour de l'entité avec le nom du fichier
+            $medium->setPath($fileName);
+
             $entityManager->persist($medium);
             $entityManager->flush();
 
@@ -72,6 +89,22 @@ class MediaController extends AbstractController
     public function delete(Request $request, Media $medium, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$medium->getId(), $request->request->get('_token'))) {
+
+            // Vérification qu'il ne soit pas utilisé par un produit ou une catégorie
+            $products = $entityManager->getRepository(Product::class)->findBy(['idMedia' => $medium]);
+            $categories = $entityManager->getRepository(Category::class)->findBy(['idMedia' => $medium]);
+
+            // Si le média est utilisé, on affiche un message d'erreur
+            if (count($products) > 0 || count($categories) > 0) {
+                $this->addFlash('danger', 'Impossible de supprimer ce média, il est utilisé par un produit ou une catégorie');
+                return $this->redirectToRoute('app_media_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            // Suppression du fichier 
+            if (file_exists($this->getParameter('kernel.project_dir').'/public/uploads/'. $medium->getPath())) {
+                unlink($this->getParameter('kernel.project_dir').'/public/uploads/'. $medium->getPath());
+            }
+
             $entityManager->remove($medium);
             $entityManager->flush();
         }

@@ -203,3 +203,10 @@ body {
     object-fit: cover;
     margin-right: 20px;
 }
+
+/* Media */
+.thumbnail {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+}

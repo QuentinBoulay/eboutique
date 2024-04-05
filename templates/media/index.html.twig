@@ -1,9 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Media index{% endblock %}
-
+{% block title %}Liste des médias{% endblock %}
 
 {% block body %}
+    {# Affcihage des flashdata #}
+    {% include "./_parts/toasts.html.twig" %}
+
     <div class="page-content container">
         <h1>Liste des médias</h1>
 
@@ -11,8 +13,8 @@
             <thead>
                 <tr>
                     <th>Id</th>
+                    <th>Media</th>
                     <th>Type</th>
-                    <th>Path</th>
                     <th>Alt</th>
                     <th>Actions</th>
                 </tr>
@@ -21,8 +23,8 @@
             {% for medium in media %}
                 <tr>
                     <td>{{ medium.id }}</td>
+                    <td><img class="thumbnail" src="../uploads/{{ medium.path }}" alt="{{ medium.alt }}"/></td>
                     <td>{{ medium.type }}</td>
-                    <td>{{ medium.path }}</td>
                     <td>{{ medium.alt }}</td>
                     <td>
                         <a href="{{ path('app_media_show', {'id': medium.id}) }}">Voir</a>

@@ -18,8 +18,19 @@ class ProductController extends AbstractController
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository): Response
     {
+        $products = $productRepository->findAll();
+
+        // Ajouter le chemin de l'image pour chaque produit
+        foreach ($products as $product) {
+            if ($product->getIdMedia() === null) {
+                $product->media = "https://static.thenounproject.com/png/3022241-200.png";
+            } else {
+                $product->media = $product->getIdMedia()->getPath();
+            }
+        }
+
         return $this->render('product/index.html.twig', [
-            'products' => $productRepository->findAll(),
+            'products' => $products,
         ]);
     }
 

@@ -1,0 +1,65 @@
+<style>
+    .liveToast {
+        position: fixed;
+        top: 80px;
+        left: 50%;
+        z-index: 9999;
+        max-width: 50%;
+        transform: translateX(-50%);
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .liveToast.danger {
+        border: 2px solid #dc3545;
+        background-color: #dc354557;
+    }
+
+    .liveToast.success {
+        border: 2px solid #198754;
+        background-color: #1987544f;
+    }
+
+    .liveToast.hide {
+        display: none
+    }
+
+    .toast-header {
+        margin-bottom: 5px;
+    }
+
+    .toast-actions {
+        margin-top: 5px;
+    }
+</style>
+
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="liveToast {{label}}">
+            <div id="liveToastMessage" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Notification</strong>
+                </div>
+                <div class="toast-body">
+                    {{ message }}
+                </div>
+                <div class="toast-actions">
+                    <button type="button" class="btn-close">Fermer</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endfor %}
+
+
+<script>
+    var liveToast = document.querySelector('.liveToast')
+    var btnClose = document.querySelector('.btn-close')
+
+    if (btnClose) {
+        btnClose.addEventListener('click', (event) => {
+            if (liveToast) liveToast.classList.add('hide')
+        });
+    }
+</script>

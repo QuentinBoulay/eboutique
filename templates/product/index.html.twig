@@ -10,6 +10,7 @@
             <thead>
                 <tr>
                     <th>Id</th>
+                    <th>Image</th>
                     <th>Nom</th>
                     <th>Description</th>
                     <th>Prix HT</th>
@@ -21,6 +22,7 @@
             {% for product in products %}
                 <tr>
                     <td>{{ product.id }}</td>
+                    <td><img class="thumbnail" src="../uploads/{{ product.media }}" alt="{{ product.name }}"/></td>
                     <td>{{ product.name }}</td>
                     <td>{{ product.description }}</td>
                     <td>{{ product.priceHT }}</td>
