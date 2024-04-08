@@ -23,7 +23,7 @@ class ProductController extends AbstractController
         // Ajouter le chemin de l'image pour chaque produit
         foreach ($products as $product) {
             if ($product->getIdMedia() === null) {
-                $product->media = "https://static.thenounproject.com/png/3022241-200.png";
+                $product->media = "thumbnail-product.svg";
             } else {
                 $product->media = $product->getIdMedia()->getPath();
             }
@@ -63,7 +63,7 @@ class ProductController extends AbstractController
         $breadcrumbService->add($product->getName(), 'app_product_show', ['id' => $product->getId()]);
 
         if ($product->getIdMedia() === null) {
-            $media = "https://static.thenounproject.com/png/3022241-200.png";
+            $media = "thumbnail-product.svg";
         } else {
             $media = $product->getIdMedia()->getPath();
         }

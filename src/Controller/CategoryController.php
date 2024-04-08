@@ -49,9 +49,20 @@ class CategoryController extends AbstractController
         $breadcrumbService->add('Home', 'app_home');
         $breadcrumbService->add($category->getName(), 'app_category_show', ['id' => $category->getId()]);
 
+        // Récupérer les produits et catégories depuis la base de données
+        $products = $category->getProducts();
+
+        foreach ($products as $product) {
+            if ($product->getIdMedia() === null) {
+                $product->media = "thumbnail-product.svg";
+            } else {
+                $product->media = $product->getIdMedia()->getPath();
+            }
+        }
+
         return $this->render('category/show.html.twig', [
             'category' => $category,
-            'products' => $category->getProducts(),
+            'products' => $products,
             'breadcrumbs' => $breadcrumbService->getBreadcrumbs()
         ]);
     }

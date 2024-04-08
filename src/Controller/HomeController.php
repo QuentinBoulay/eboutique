@@ -19,7 +19,7 @@ class HomeController extends AbstractController
 
         foreach ($products as $product) {
             if ($product->getIdMedia() === null) {
-                $product->media = "https://static.thenounproject.com/png/3022241-200.png";
+                $product->media = "thumbnail-product.svg";
             } else {
                 $product->media = $product->getIdMedia()->getPath();
             }
