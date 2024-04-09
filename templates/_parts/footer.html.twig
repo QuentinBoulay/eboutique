@@ -6,14 +6,52 @@
         color: #fff;
         padding: 10px 0;
         width: 100%;
-        text-align: center;
     }
 
     #footer p {
         margin: 0;
     }
 
+    .footer-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 60px;
+        max-width: 80%;
+        margin: 20px auto 50px auto;
+    }
+
+    .footer-nav ul {
+        margin: 0;
+        padding: 0 20px;
+    } 
+
+    .footer-nav h4 {
+        margin-bottom: 10px
+    } 
+
+    .footer-nav ul li {
+        list-style: none
+    }
+
+    .footer-nav ul li a {
+        display: block;
+        color: #fff;
+        text-decoration: none;
+        transition: all .3s;
+        padding: 3px 0;
+    }
+
+    .footer-nav ul li a:hover {
+        color: #e7ba07;
+    }
+
+    .footer-nav ul {
+        text-align: left;
+    }
+
     .copyright {
+        text-align: center;
         font-size: 12px;
     }
 </style>
@@ -21,6 +59,31 @@
 
 <footer id="footer">
     <div class="footer-nav">
+        <div class="coordonnees">
+            <h3>Eboutique</h3>
+            <p>1 Rue de la boutique</p>
+            <p>75005, Paris</p>
+        </div>
+        <ul>
+            <li><h4>Accès rapide</h4></li>
+            <li><a href="{{ path('app_shop') }}">Boutique</a></li>
+            <li><a href="{{ path('app_cart') }}">Panier</a></li>
+            {% if app.user %}
+				<li><a href="{{ path('app_user_show', { 'id' : app.user.id }) }}">Mon compte</a></li>
+            {% else %}
+				<li><a href="{{ path('app_login') }}">Connexion</a></li>
+            {% endif %}
+        </ul>
+         <ul>
+            <li><h4>Accès rapide</h4></li>
+            <li><a href="{{ path('app_shop') }}">Boutique</a></li>
+            <li><a href="{{ path('app_cart') }}">Panier</a></li>
+            {% if app.user %}
+				<li><a href="{{ path('app_user_show', { 'id' : app.user.id }) }}">Mon compte</a></li>
+            {% else %}
+				<li><a href="{{ path('app_login') }}">Connexion</a></li>
+            {% endif %}
+        </ul>
     </div>
     <div class="container copyright">
         <p>&copy; 2024 - Eboutique. Tous droits réservés. Site réalisé par Sébastien Burnet et Quentin Boulay</p>
