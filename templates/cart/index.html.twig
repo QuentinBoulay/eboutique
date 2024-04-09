@@ -31,6 +31,7 @@
         }
     </style>
 
+    
     <div class="page-content container">
         <div class="basket-head">
             <h1>Mon panier</h1>
@@ -47,7 +48,7 @@
                     {% include('_parts/product-item-cart.html.twig') %}
                 {% endfor %}
                 <div class="basket-total">
-                    <h2>Total : {{ basket.totalPrice }} €</h2>
+                    <h2>Total : <span id="total-price">{{ basket.totalPrice }}</span> €</h2>
 
                     {{ include('cart/_validate_cart_form.html.twig') }}
                 </div>
@@ -63,6 +64,39 @@
                 <a href="{{ path('app_shop') }}" class="btn-black">Voir la boutique</a>
             </div>
         {% endif %}
-        
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Détecter les changements de quantité
+            $('.quantity-input').change(function() {
+                // Récupération de la nouvelle quantité
+                var newQuantity = $(this).val();
+
+                // Récupération de l'identifiant et du prix de l'article
+                var itemId = $(this).data('item-id');
+                var itemPrice =  $(this).data('item-price')
+
+                // Requête AJAX pour mettre à jour le prix du panier
+                $.ajax({
+                    url: '{{ path('update_cart') }}',
+                    method: 'GET',
+                    data: { 
+                        quantity: newQuantity,
+                        id: itemId,
+                        price: itemPrice
+                    },
+                    success: function(response) {
+                        // Mettre à jour l'affichage du prix total du panier
+                        $('#total-price').text(response.new_price);
+                        $('#item-quantity').text(newQuantity);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}

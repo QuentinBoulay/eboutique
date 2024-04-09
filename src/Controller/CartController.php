@@ -12,6 +12,7 @@ use App\Entity\Order;
 use App\Entity\Product;
 use App\Entity\CommandLine;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 class CartController extends AbstractController
@@ -24,7 +25,7 @@ class CartController extends AbstractController
         $breadcrumbService->add('Panier', 'app_cart');
 
         // Récupérer le panier de l'utilisateur
-        $basket =  $entityManager->getRepository(Order::class)->findOneBy(
+        $basket = $entityManager->getRepository(Order::class)->findOneBy(
             [
                 'idUser' => $security->getUser()->getId(),
                 'valid' => false
@@ -150,5 +151,45 @@ class CartController extends AbstractController
         return $this->redirectToRoute('app_cart');
     }
 
-    
+    #[Route('/update-cart', name: 'update_cart', methods: ['GET'])]
+    public function updateCart(Request $request, EntityManagerInterface $entityManager, Security $security)
+    {
+         // Récupéreration des infos
+         $newQuantity = $request->query->get('quantity');
+         $price = $request->query->get('price');
+         $id = $request->query->get('id');
+         $priceTotal = $request->query->get('total');
+
+         // Modification des quantité de l'entité
+         $basket = $entityManager->getRepository(Order::class)->findOneBy(
+            [
+                'idUser' => 1,
+                'valid' => false
+            ]
+        );
+
+        $total = 0;
+
+
+        if ($basket) {
+            $basketDetails = $basket->getCommandLines();
+
+            foreach ($basketDetails as $basketDetail) {
+                if ($basketDetail->getIdProduct()->getId() == $id) {
+                    $basketDetail->setQuantity($newQuantity);
+                    $entityManager->persist($basketDetail);
+                    $entityManager->flush();
+                }
+
+                $total += $basketDetail->getIdProduct()->getPriceHT() * $basketDetail->getQuantity();
+            }
+
+            // Récupération du total du panier
+        }
+
+        // Renvoi du nouveau prix du panier pour l'affichage en live
+        $newPrice = $total;
+
+        return new JsonResponse(['new_price' => $newPrice, 'new_quantity' => $basket]);
+    }
 }

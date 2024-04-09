@@ -3,12 +3,11 @@
 		<img src="../uploads/{{  item.product.media }}" alt="{{ item.product.name }}" class="img-fluid">
 		<div>
 			<h2>{{ item.product.name }}</h2>
-			<p>Quantité : {{ item.quantity }}</p>
+			<label for="quantity{{ item.id }}">Quantité :</label>
+        	<input type="number" id="quantity{{ item.id }}" class="quantity-input" data-item-id="{{ item.product.id }}" data-item-price="{{ item.product.priceHT }}" value="{{ item.quantity }}" min="1">
 		</div>
 	</div>
 	<div class="product-price">
-		<p>
-			<strong>{{ item.product.priceHT * item.quantity }} €</strong>
-		</p>
+		<p><strong>{{ item.product.priceHT }} € X <span id="item-quantity">{{ item.quantity }}</span></strong></p>
 	</div>
 </div>
