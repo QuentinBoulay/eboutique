@@ -67,7 +67,7 @@ class OrderController extends AbstractController
                 $product = $value->getIdProduct();
 
                 if ($product->getIdMedia() === null) {
-                    $product->media = "https://static.thenounproject.com/png/3022241-200.png";
+                    $product->media = "thumbnail-product.svg";
                 } else {
                     $product->media = $product->getIdMedia()->getPath();
                 }
@@ -78,6 +78,7 @@ class OrderController extends AbstractController
         }
 
         return $this->render('order/show.html.twig', [
+            'hideQuantityInput' => true,
             'order' => $order,
             'orderDetails' => $orderDetails,
             'breadcrumbs' => $breadcrumbService->getBreadcrumbs()

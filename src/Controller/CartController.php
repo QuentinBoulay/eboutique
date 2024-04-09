@@ -57,6 +57,7 @@ class CartController extends AbstractController
             
         return $this->render('cart/index.html.twig', [
             'controller_name' => 'CartController',
+            'hideQuantityInput' => false,
             'basket' => $basket,
             'basketDetails' => $basketDetails,
         ]);
