@@ -38,22 +38,23 @@
         object-fit: cover;
     }
 
-    .listing-products {
+    .listing-products, .listing-categories {
         margin-top: 30px;
         display: flex;
         flex-wrap: wrap;
     }
 
-    .listing-products h2 {
+    .listing-products h2, .listing-categories h2 {
         width: 100%;
         margin-bottom: 20px;
     }
 
-    .listing-products a {
+    .listing-categories a {
         text-decoration: none;
         color: #fff;
         margin: 10px;
         flex: 1 1 300px;
+        max-width: 400px;
         position: relative;
         transition: all 0.3s;
         overflow: hidden;
@@ -61,34 +62,23 @@
         box-shadow: 0 10px 20px rgba(0,0,0,0.12), 0 6px 6px rgba(0,0,0,0.16);
     }
 
-    .listing-products a:hover {
+    .listing-categories a:hover {
         box-shadow: 0 10px 20px rgba(0,0,0,0.21), 0 6px 6px rgba(0,0,0,0.25);
     }
 
-    .listing-products a:hover .add-to-cart {
-        bottom: 20px;
-    }
-
-    .listing-products a:hover figure img {
+    .listing-categories a:hover figure img {
         transform: scale(1.05);
         transition: all 0.3s;
     }
 
-    .listing-products .content-product figure {
+    .listing-categories .content-category figure {
         width: 100%;
         height: 400px;
         overflow: hidden;
         margin: 0;
     }
 
-    .listing-products .content-product figure img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: bottom;
-    }
-
-    .listing-products .content-product .infos {
+    .listing-categories .content-category .infos {
         position: absolute;
         bottom: 0;
         left: 0;
@@ -98,40 +88,10 @@
         color: #000;
     }
 
-    .listing-products .content-product .infos-head {
+    .listing-categories .content-category .infos-head {
         display: flex;
         justify-content: space-between;
         align-items: center;
-    }
-
-    .listing-products .content-product .price {
-        font-weight: bold;
-        margin-top: 5px;
-        font-size: 1.2rem;
-    }
-
-    .listing-products .content-product .category {
-        background-color: #000;
-        padding: 4px 5px;
-        font-size: 0.8rem;
-        color: #fff;
-        margin: 10px 0 0 0;
-        display: block;
-        width: fit-content;
-        border-radius: 5px;
-    }
-
-    .listing-products .content-product .add-to-cart {
-        padding: 5px 10px;
-        position: absolute;
-        bottom: -40px;
-        right: 10px;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-
-    .listing-products .content-product .add-to-cart:hover {
-        color: #e1ba0c;
     }
 </style>
 
@@ -152,11 +112,11 @@
         {% endfor %}
     </div>
 
-    <div class="listing-products">
+    <div class="listing-categories">
         <h2>Nos catégories</h2>
         {% for category in categories %}
             <a href="{{ path('app_category_show', { 'id' : category.id }) }}">
-                <div class="content-product">
+                <div class="content-category">
                     <figure>
                         <img src="https://cocktail-scandinave.fr/wp-content/uploads/2023/04/NISNFATACA140-amb.jpg" alt="{{ category.name }}">
                     </figure>
