@@ -129,7 +129,7 @@ class CartController extends AbstractController
             $entityManager->flush();
         }   
 
-        return $this->redirectToRoute('app_cart'); 
+        return $this->redirectToRoute('app_remerciement'); 
     }
 
     #[Route('/empty/{id}', name: 'app_cart_empty', methods: ['POST'])]
@@ -197,10 +197,6 @@ class CartController extends AbstractController
     #[Route('/merci', name: 'app_remerciement')]
     public function remerciement(EntityManagerInterface $entityManager, Security $security, BreadcrumbService $breadcrumbService): Response
     {
-        // Breadcrumb
-        $breadcrumbService->add('Accueil', 'app_home');
-        $breadcrumbService->add('Merci', 'app_remerciement');
-            
         return $this->render('cart/remerciement.html.twig', [
             'controller_name' => 'CartController',
         ]);

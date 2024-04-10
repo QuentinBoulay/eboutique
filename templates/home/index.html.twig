@@ -25,11 +25,12 @@
         left: 50%;
         transform: translate(-50%, -50%);
         color: #fff;
-        font-size: 3rem;
+        font-size: 2.6rem;
         z-index: 1;
         width: 90%;
         text-align: center;
         margin: 0;
+        font-style: italic;
     }
 
     .banner img {
@@ -47,6 +48,10 @@
     .listing-products h2, .listing-categories h2 {
         width: 100%;
         margin-bottom: 20px;
+    }
+
+    .product-item {
+        max-width: 100%;
     }
 
     .listing-categories a {
@@ -111,24 +116,80 @@
         justify-content: space-between;
         align-items: center;
     }
+
+    #about {
+        margin: 100px auto
+    }
+
+    #about .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    #about .left {
+        width: 60%;
+        min-width: 300px;
+        padding-right: 70px;
+    }
+
+    #about .right {
+        width: 40%;
+    }
+
+     #about .right img {
+        width: 100%;
+        height: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+     }
+
+     @media only screen and (max-width: 768px) {
+        #about .left {
+            width: 100%;
+            padding-right: 0;
+        }
+
+        #about .right {
+            width: 100%;
+            margin-top: 30px;
+        }
+     }
 </style>
 
 {# Bannière #}
 <div class="banner">
-    <img src="https://www.4murs.com/fstrz/r/s/assets.4murs.com/system/generes/cms_refonte_1/001/662/873/3386424699_1x/1662873-meuble-buffet-bas-figari-4murs.jpg?1687942751" alt="Banner">
-    <h1>Titre du site</h1>
+    <img src="/uploads/vetements_home.jpeg" alt="Banner">
+    <h1>Découvrez l'essence de l'élégance<br/> à La Fabrique de Style</h1>
 </div>
 
 {# Contenu #}
 <div class="page-content container">
     <div class="listing-products">
         <h2>Produits à la une</h2>
+        {% set count = 0 %}
         {% for product in products %}
-            {% if product.available %}
+            {% if count < 4 and product.available %}
                 {% include '_parts/product-item.html.twig' %}
+                {% set count = count + 1 %}
             {% endif %}
         {% endfor %}
     </div>
+
+    <section id="about">
+        <div class="row">
+            <div class="left">
+                <h2>Qui sommes-nous ?</h2>
+                <p>La Fabrique de Style est une boutique en ligne de vêtements et accessoires pour hommes et femmes. Nous proposons des produits de qualité à des prix abordables. Découvrez notre collection et trouvez le style qui vous correspond. Notre entreprise a été créée en 2024 par une équipe de passionnés de mode. Nous avons à coeur de vous proposer des produits tendances et de qualité. Nous travaillons avec des fournisseurs locaux et internationaux pour vous offrir un large choix de produits. Nous mettons un point d'honneur à vous satisfaire et à vous offrir une expérience d'achat agréable. N'hésitez pas à nous contacter pour toute question ou demande d'information.
+                </p>
+            </div>
+            <div class="right">
+                <img src="/uploads/about.avif" alt="Vêtements">
+            </div>
+        </div>
+    </section>
 
     <div class="listing-categories">
         <h2>Nos catégories</h2>

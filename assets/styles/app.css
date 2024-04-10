@@ -16,9 +16,15 @@ body {
     margin: 0 auto;
 }
 
+.container.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .page-content {
     padding: 70px 0;
-    min-height: calc( 100vh - 108px );
+    min-height: calc( 100vh - 298px );
 }
 
 /* Boutons */
@@ -223,7 +229,7 @@ body {
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.12), 0 6px 6px rgba(0,0,0,0.16);
-    max-width: 400px;
+    max-width: 300px;
 }
 
 .product-item:hover {
