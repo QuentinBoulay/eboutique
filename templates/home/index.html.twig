@@ -25,11 +25,12 @@
         left: 50%;
         transform: translate(-50%, -50%);
         color: #fff;
-        font-size: 3rem;
+        font-size: 2.6rem;
         z-index: 1;
         width: 90%;
         text-align: center;
         margin: 0;
+        font-style: italic;
     }
 
     .banner img {
@@ -97,17 +98,19 @@
 
 {# Bannière #}
 <div class="banner">
-    <img src="https://www.4murs.com/fstrz/r/s/assets.4murs.com/system/generes/cms_refonte_1/001/662/873/3386424699_1x/1662873-meuble-buffet-bas-figari-4murs.jpg?1687942751" alt="Banner">
-    <h1>Titre du site</h1>
+    <img src="https://www.linfodurable.fr/sites/linfodurable/files/styles/share/public/2019-01/v%C3%AAtements_0.jpg?itok=NtsDxX2P" alt="Banner">
+    <h1>Découvrez l'essence de l'élégance<br/> à La Fabrique de Style</h1>
 </div>
 
 {# Contenu #}
 <div class="page-content container">
     <div class="listing-products">
         <h2>Produits à la une</h2>
+        {% set count = 0 %}
         {% for product in products %}
-            {% if product.available %}
+            {% if count < 3 and product.available %}
                 {% include '_parts/product-item.html.twig' %}
+                {% set count = count + 1 %}
             {% endif %}
         {% endfor %}
     </div>
@@ -118,7 +121,7 @@
             <a href="{{ path('app_category_show', { 'id' : category.id }) }}">
                 <div class="content-category">
                     <figure>
-                        <img src="https://cocktail-scandinave.fr/wp-content/uploads/2023/04/NISNFATACA140-amb.jpg" alt="{{ category.name }}">
+                        <img src="https://www.linfodurable.fr/sites/linfodurable/files/styles/share/public/2019-01/v%C3%AAtements_0.jpg?itok=NtsDxX2P" alt="{{ category.name }}">
                     </figure>
                     <div class="infos">
                         <div class="infos-head">
