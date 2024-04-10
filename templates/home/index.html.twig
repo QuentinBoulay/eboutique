@@ -50,6 +50,10 @@
         margin-bottom: 20px;
     }
 
+    .product-item {
+        max-width: 100%;
+    }
+
     .listing-categories a {
         text-decoration: none;
         color: #fff;
@@ -94,11 +98,52 @@
         justify-content: space-between;
         align-items: center;
     }
+
+    #about {
+        margin: 100px auto
+    }
+
+    #about .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    #about .left {
+        width: 60%;
+        min-width: 300px;
+        padding-right: 70px;
+    }
+
+    #about .right {
+        width: 40%;
+    }
+
+     #about .right img {
+        width: 100%;
+        height: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+     }
+
+     @media only screen and (max-width: 768px) {
+        #about .left {
+            width: 100%;
+            padding-right: 0;
+        }
+
+        #about .right {
+            width: 100%;
+            margin-top: 30px;
+        }
+     }
 </style>
 
 {# Bannière #}
 <div class="banner">
-    <img src="https://www.linfodurable.fr/sites/linfodurable/files/styles/share/public/2019-01/v%C3%AAtements_0.jpg?itok=NtsDxX2P" alt="Banner">
+    <img src="/uploads/vetements_home.jpeg" alt="Banner">
     <h1>Découvrez l'essence de l'élégance<br/> à La Fabrique de Style</h1>
 </div>
 
@@ -108,12 +153,25 @@
         <h2>Produits à la une</h2>
         {% set count = 0 %}
         {% for product in products %}
-            {% if count < 3 and product.available %}
+            {% if count < 4 and product.available %}
                 {% include '_parts/product-item.html.twig' %}
                 {% set count = count + 1 %}
             {% endif %}
         {% endfor %}
     </div>
+
+    <section id="about">
+        <div class="row">
+            <div class="left">
+                <h2>Qui sommes-nous ?</h2>
+                <p>La Fabrique de Style est une boutique en ligne de vêtements et accessoires pour hommes et femmes. Nous proposons des produits de qualité à des prix abordables. Découvrez notre collection et trouvez le style qui vous correspond. Notre entreprise a été créée en 2024 par une équipe de passionnés de mode. Nous avons à coeur de vous proposer des produits tendances et de qualité. Nous travaillons avec des fournisseurs locaux et internationaux pour vous offrir un large choix de produits. Nous mettons un point d'honneur à vous satisfaire et à vous offrir une expérience d'achat agréable. N'hésitez pas à nous contacter pour toute question ou demande d'information.
+                </p>
+            </div>
+            <div class="right">
+                <img src="/uploads/about.avif" alt="Vêtements">
+            </div>
+        </div>
+    </section>
 
     <div class="listing-categories">
         <h2>Nos catégories</h2>
@@ -121,7 +179,7 @@
             <a href="{{ path('app_category_show', { 'id' : category.id }) }}">
                 <div class="content-category">
                     <figure>
-                        <img src="https://www.linfodurable.fr/sites/linfodurable/files/styles/share/public/2019-01/v%C3%AAtements_0.jpg?itok=NtsDxX2P" alt="{{ category.name }}">
+                        <img src="/uploads/vetements_home.jpeg" alt="{{ category.name }}">
                     </figure>
                     <div class="infos">
                         <div class="infos-head">
