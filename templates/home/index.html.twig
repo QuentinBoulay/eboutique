@@ -66,16 +66,22 @@
         box-shadow: 0 10px 20px rgba(0,0,0,0.21), 0 6px 6px rgba(0,0,0,0.25);
     }
 
+    .listing-categories a figure {
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+        margin: 0;
+    }
+
     .listing-categories a:hover figure img {
         transform: scale(1.05);
         transition: all 0.3s;
     }
 
-    .listing-categories .content-category figure {
+    .listing-categories .content-category figure img {
         width: 100%;
-        height: 400px;
-        overflow: hidden;
-        margin: 0;
+        height: 80%;
+        object-fit: cover;
     }
 
     .listing-categories .content-category .infos {
@@ -86,6 +92,18 @@
         width: 100%;
         background-color: #fff;
         color: #000;
+    }
+
+    .content-category:hover figure img {
+        transform: scale(1.05);
+        transition: all 0.3s;
+    }
+
+    .listing-categories .content-category figure {
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+        margin: 0;
     }
 
     .listing-categories .content-category .infos-head {
@@ -118,7 +136,7 @@
             <a href="{{ path('app_category_show', { 'id' : category.id }) }}">
                 <div class="content-category">
                     <figure>
-                        <img src="https://cocktail-scandinave.fr/wp-content/uploads/2023/04/NISNFATACA140-amb.jpg" alt="{{ category.name }}">
+                        <img src="../uploads/{{ category.media }}" alt="{{ category.name }}">
                     </figure>
                     <div class="infos">
                         <div class="infos-head">

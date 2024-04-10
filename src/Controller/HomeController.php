@@ -27,6 +27,14 @@ class HomeController extends AbstractController
 
         $categories = $entityManager->getRepository(Category::class)->findAll();
 
+        foreach ($categories as $category) {
+            if ($category->getIdMedia() === null) {
+                $category->media = "thumbnail-product.svg";
+            } else {
+                $category->media = $category->getIdMedia()->getPath();
+            }
+        }
+
         return $this->render('home/index.html.twig', [
             'products' => $products,
             'categories' => $categories,
