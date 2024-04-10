@@ -47,6 +47,7 @@ class CategoryController extends AbstractController
     public function show(Category $category, BreadcrumbService $breadcrumbService): Response
     {
         $breadcrumbService->add('Home', 'app_home');
+        $breadcrumbService->add('Boutique', 'app_shop');
         $breadcrumbService->add($category->getName(), 'app_category_show', ['id' => $category->getId()]);
 
         // Récupérer les produits et catégories depuis la base de données
