@@ -64,16 +64,6 @@
             <p>1 Rue de la boutique</p>
             <p>75005, Paris</p>
         </div>
-        <ul>
-            <li><h4>Accès rapide</h4></li>
-            <li><a href="{{ path('app_shop') }}">Boutique</a></li>
-            <li><a href="{{ path('app_cart') }}">Panier</a></li>
-            {% if app.user %}
-				<li><a href="{{ path('app_user_show', { 'id' : app.user.id }) }}">Mon compte</a></li>
-            {% else %}
-				<li><a href="{{ path('app_login') }}">Connexion</a></li>
-            {% endif %}
-        </ul>
          <ul>
             <li><h4>Accès rapide</h4></li>
             <li><a href="{{ path('app_shop') }}">Boutique</a></li>
