@@ -3,11 +3,11 @@
 {% block title %}Nouveau média{% endblock %}
 
 {% block body %}
-    <div class="page-content container">
+    <div class="page-content container page-admin">
         <h1>Création d'un nouveau média</h1>
 
         {{ include('media/_form.html.twig') }}
 
-        <a href="{{ path('app_media_index') }}">Retour à la liste</a>
+        <a href="{{ path('app_media_index') }}" class="btn-black">Retour à la liste</a>
     </div>
 {% endblock %}

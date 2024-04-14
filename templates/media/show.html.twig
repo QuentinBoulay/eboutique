@@ -43,7 +43,7 @@
 
         {{ include('media/_delete_form.html.twig') }}
 
-        <a href="{{ path('app_media_index') }}">Retour à la liste</a>
+        <a href="{{ path('app_media_index') }}" class="btn-black">Retour à la liste</a>
         <a href="{{ path('app_media_edit', {'id': medium.id}) }}">Modifier</a>
     </div>
 {% endblock %}

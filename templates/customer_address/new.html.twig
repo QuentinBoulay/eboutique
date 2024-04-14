@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New CustomerAddress{% endblock %}
+{% block title %}Création de l'adresse d'un client{% endblock %}
 
 {% block body %}
-    <h1>Create new CustomerAddress</h1>
+    <div class="page-content container page-admin">
+        <h1>Création de l'adresse d'un client</h1>
 
-    {{ include('customer_address/_form.html.twig') }}
+        {{ include('customer_address/_form.html.twig') }}
 
-    <a href="{{ path('app_customer_address_index') }}">back to list</a>
+        <a href="{{ path('app_customer_address_index') }}" class="btn-black">Retour à la liste</a>
+    </div>
 {% endblock %}

@@ -27,6 +27,55 @@ body {
     min-height: calc( 100vh - 298px );
 }
 
+.page-admin form div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin: 3px 0;
+}
+
+/* Page de modifcation */
+.page-admin form button {
+    margin: 10px 0;
+}
+
+.page-admin form div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin: 3px 0;
+}
+
+.page-admin form .btn {
+    display: inline-block;
+    background-color: #e7ba07;
+    color: #fff;
+    border: 2px solid #e7ba07;
+    transition: all .3s;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.page-admin form .btn:hover {
+    background-color: #fff;
+    color: #e7ba07;
+}
+
+.page-admin .btn-danger {
+    display: inline-block;
+}
+
+.page-admin .btn-black {
+    display: inline-block;
+}
+
 /* Boutons */
 .btn-black {
     background-color: #000;

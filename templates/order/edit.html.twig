@@ -3,12 +3,12 @@
 {% block title %}Modification de la commande{% endblock %}
 
 {% block body %}
-    <div class="page-content container">
+    <div class="page-content container page-admin">
         <h1>Modification de la commande</h1>
 
-        {{ include('order/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('order/_form.html.twig', {'button_label': 'Modifier'}) }}
         {{ include('order/_delete_form.html.twig') }}
         
-        <a href="{{ path('app_order_index') }}">Retour à la liste</a>
+        <a href="{{ path('app_order_index') }}" class="btn-black" class="btn-black">Retour à la liste</a>
     </div>
 {% endblock %}

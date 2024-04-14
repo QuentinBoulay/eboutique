@@ -3,13 +3,13 @@
 {% block title %}Modification d'une catégorie{% endblock %}
 
 {% block body %}
-    <div class="page-content container">
+    <div class="page-content container page-admin">
         <h1>Modification d'une catégorie</h1>
 
         {{ include('category/_form.html.twig', {'button_label': 'Modifier'}) }}
 
         {{ include('category/_delete_form.html.twig') }}
 
-        <a href="{{ path('app_category_index') }}">Retour à la liste</a>
+        <a href="{{ path('app_category_index') }}" class="btn-black">Retour à la liste</a>
     </div>
 {% endblock %}
