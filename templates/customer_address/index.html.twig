@@ -34,8 +34,8 @@
                     <td>{{ customer_address.city }}</td>
                     <td>{{ customer_address.country }}</td>
                     <td>
-                        <a href="{{ path('app_customer_address_show', {'id': customer_address.id}) }}">Voir</a>
-                        <a href="{{ path('app_customer_address_edit', {'id': customer_address.id}) }}">Modifier</a>
+                        <a href="{{ path('app_customer_address_show', {'id': customer_address.id}) }}" class="btn-gold">Voir</a>
+                        <a href="{{ path('app_customer_address_edit', {'id': customer_address.id}) }}" class="btn-gold">Modifier</a>
                     </td>
                 </tr>
             {% else %}
@@ -46,6 +46,6 @@
             </tbody>
         </table>
 
-        <a href="{{ path('app_customer_address_new') }}">Créer une nouvelle adresse</a>
+        <a href="{{ path('app_customer_address_new') }}" class="btn-gold">Créer une nouvelle adresse</a>
     </div>
 {% endblock %}

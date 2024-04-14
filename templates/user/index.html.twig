@@ -28,8 +28,8 @@
                     <td>{{ user.phone }}</td>
                     <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
                     <td>
-                        <a href="{{ path('app_user_show', {'id': user.id}) }}">Voir</a>
-                        <a href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
+                        <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn-gold">Voir</a>
+                        <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn-gold">Modifier</a>
                     </td>
                 </tr>
             {% else %}

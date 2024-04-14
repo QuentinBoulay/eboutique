@@ -27,8 +27,8 @@
                     <td>{{ medium.type }}</td>
                     <td>{{ medium.alt }}</td>
                     <td>
-                        <a href="{{ path('app_media_show', {'id': medium.id}) }}">Voir</a>
-                        <a href="{{ path('app_media_edit', {'id': medium.id}) }}">Modifier</a>
+                        <a href="{{ path('app_media_show', {'id': medium.id}) }}" class="btn-gold">Voir</a>
+                        <a href="{{ path('app_media_edit', {'id': medium.id}) }}" class="btn-gold">Modifier</a>
                     </td>
                 </tr>
             {% else %}
@@ -39,7 +39,7 @@
             </tbody>
         </table>
 
-        <a href="{{ path('app_media_new') }}">Créer un nouveau média</a>
+        <a href="{{ path('app_media_new') }}" class="btn-gold">Créer un nouveau média</a>
 
     </div>
 {% endblock %}

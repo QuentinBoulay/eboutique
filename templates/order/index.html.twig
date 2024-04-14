@@ -24,8 +24,8 @@
                     <td>{{ order.valid ? 'Oui' : 'Non' }}</td>
                     <td>{{ order.dateTime ? order.dateTime|date('Y-m-d H:i:s') : '' }}</td>
                     <td>
-                        <a href="{{ path('app_order_show', {'id': order.id}) }}">Voir</a>
-                        <a href="{{ path('app_order_edit', {'id': order.id}) }}">Modifier</a>
+                        <a href="{{ path('app_order_show', {'id': order.id}) }}" class="btn-gold">Voir</a>
+                        <a href="{{ path('app_order_edit', {'id': order.id}) }}" class="btn-gold">Modifier</a>
                     </td>
                 </tr>
             {% else %}
@@ -36,6 +36,6 @@
             </tbody>
         </table>
 
-        <a href="{{ path('app_order_new') }}">Créer une nouvelle commande</a>
+        <a href="{{ path('app_order_new') }}" class="btn-gold">Créer une nouvelle commande</a>
     </div>
 {% endblock %}

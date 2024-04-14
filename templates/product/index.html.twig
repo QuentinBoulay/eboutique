@@ -28,8 +28,8 @@
                     <td>{{ product.priceHT }}</td>
                     <td>{{ product.available ? 'Oui' : 'Non' }}</td>
                     <td>
-                        <a href="{{ path('app_product_show', {'id': product.id}) }}">Voir</a>
-                        <a href="{{ path('app_product_edit', {'id': product.id}) }}">Modifier</a>
+                        <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn-gold">Voir</a>
+                        <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn-gold">Modifier</a>
                     </td>
                 </tr>
             {% else %}
@@ -40,6 +40,6 @@
             </tbody>
         </table>
 
-        <a href="{{ path('app_product_new') }}">Créer un nouveau produit</a>
+        <a href="{{ path('app_product_new') }}" class="btn-gold">Créer un nouveau produit</a>
     </div>
 {% endblock %}
