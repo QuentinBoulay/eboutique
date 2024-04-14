@@ -117,7 +117,7 @@
         <div class="listing-products">
             {% for product in products %}
                 {% if product.available %}
-                    <a href="{{ path('app_product_show', { 'id' : product.id }) }}">
+                    <a href="{{ path('app_product_show', { 'id' : product.id }) }}" class="product-item">
                         <div class="content-product">
                             <figure>
                                 <img src="../uploads/{{ product.media }}" alt="{{ product.name }}">
