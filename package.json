@@ -1,0 +1,27 @@
+{
+  "name": "eboutique",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress",
+    "deploy": "ftp-deploy --server ftp-lpweb-pro.alwaysdata.net --username lpweb-pro_quentin --password \"Test45720\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@symfony/webpack-encore": "^4.6.1",
+    "webpack-notifier": "^1.15.0"
+  },
+  "dependencies": {
+    "@samkirkland/ftp-deploy": "^1.2.4",
+    "@symfony/stimulus-bridge": "^3.2.2",
+    "core-js": "^3.37.0"
+  }
+}
