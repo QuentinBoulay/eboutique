@@ -67,7 +67,7 @@ class CartController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_cart_add', methods: ['POST'])]
+    #[Route('/add-cart/{id}', name: 'app_cart_add', methods: ['POST'])]
     public function addToCart(Request $request, Product $product, EntityManagerInterface $entityManager): Response
     {
         // Logique pour ajouter l'article au panier
