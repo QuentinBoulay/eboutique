@@ -47,6 +47,7 @@ security:
         - { path: ^/customer/address, roles: ROLE_ADMIN }
         - { route: app_user_show, roles: PUBLIC_ACCESS }
         - { route: app_user_edit, roles: PUBLIC_ACCESS }
+        - { route: app_user_delete, roles: PUBLIC_ACCESS }
         - { path: ^/user, roles: ROLE_ADMIN }
 
 when@test:

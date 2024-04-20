@@ -8,8 +8,10 @@
 
         {{ include('user/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-        {{ include('user/_delete_form.html.twig') }}
-
-        <a href="{{ path('app_user_index') }}" class="btn-black">Retour à la liste</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ include('user/_delete_form.html.twig') }}
+            
+            <a href="{{ path('app_user_index') }}" class="btn-black">Retour à la liste</a>
+        {% endif %}
     </div>
 {% endblock %}
