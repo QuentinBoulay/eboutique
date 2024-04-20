@@ -4,13 +4,13 @@
 Notre "eboutique" est une application web développée avec Symfony, conçue pour fournir une solution complète pour les boutiques en ligne. Elle permet la gestion des produits, des catégories, des commandes, des utilisateurs, et des médias.
 
 ## Fonctionnalités
-- Gestion des produits
-- Système de panier
-- Authentification et autorisation des utilisateurs
-- Interface administrateur pour la gestion des commandes
-- Gestion des catégories de produits
-- Gestion des adresses clients
-- Gestion des médias
+- Gestion des produits - OK
+- Système de panier - OK
+- Authentification et autorisation des utilisateurs - OK
+- Interface administrateur pour la gestion des commandes - OK
+- Gestion des catégories de produits - OK
+- Gestion des adresses clients - OK
+- Gestion des médias - OK
 
 ## Prérequis
 - PHP 7.4 ou supérieur
