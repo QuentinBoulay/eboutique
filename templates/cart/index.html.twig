@@ -89,7 +89,7 @@
                     success: function(response) {
                         // Mettre à jour l'affichage du prix total du panier
                         $('#total-price').text(response.new_price);
-                        $('#item-quantity').text(newQuantity);
+                        $('#item-quantity' + itemId).text(newQuantity);
                     },
                     error: function(xhr, status, error) {
                         console.error(error);
