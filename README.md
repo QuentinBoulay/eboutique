@@ -21,7 +21,7 @@ Notre "eboutique" est une application web développée avec Symfony, conçue pou
 ## Installation
 
 1. Clonez le dépôt :
-`git clone [[url-du-dépôt]](https://github.com/QuentinBoulay/eboutique.git)`
+`git clone https://github.com/QuentinBoulay/eboutique.git`
 
 2. Installez les dépendances PHP avec Composer :
 `composer install`
@@ -63,16 +63,6 @@ Les entités définissent la structure des données dans la base de données :
 - **Order** : Contient des informations sur les commandes des clients, y compris le statut et le paiement.
 - **Product** : Stocke des informations sur les produits, comme le nom, le prix et la description.
 - **User** : Gère les données des utilisateurs, incluant les informations d'authentification et de contact.
-
-### Repositories
-Chaque repository facilite l'interaction avec la base de données pour une entité spécifique :
-- **CategoryRepository** : Opérations liées aux catégories de produits.
-- **CommandLineRepository** : Gestion des lignes de commandes des commandes.
-- **CustomerAddressRepository** : Manipulation des adresses clients.
-- **MediaRepository** : Gestion des fichiers médias liés aux produits.
-- **OrderRepository** : Central pour le traitement des commandes.
-- **ProductRepository** : Essentiel pour la gestion du catalogue de produits.
-- **UserRepository** : Traite toutes les opérations liées aux utilisateurs.
 
 ## Contribution
 
