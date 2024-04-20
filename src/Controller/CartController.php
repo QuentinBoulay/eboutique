@@ -24,6 +24,10 @@ class CartController extends AbstractController
         $breadcrumbService->add('Accueil', 'app_home');
         $breadcrumbService->add('Panier', 'app_cart');
 
+        if (!$security->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        
         // Récupérer le panier de l'utilisateur
         $basket = $entityManager->getRepository(Order::class)->findOneBy(
             [
@@ -68,52 +72,59 @@ class CartController extends AbstractController
     {
         // Logique pour ajouter l'article au panier
         if ($this->isCsrfTokenValid('add_to_cart'.$product->getId(), $request->request->get('_token'))) {
-            // Récupérer le panier de l'utilisateur
-            $basket =  $entityManager->getRepository(Order::class)->findOneBy(
-                [
-                    'idUser' => $this->getUser()->getId(),
-                    'valid' => false
-                ]
-            );
 
-            if ($basket) {
-                // Vérifier si le produit est déjà dans le panier
-                $basketDetails = $basket->getCommandLines();
-                $productInBasket = false;
-                foreach ($basketDetails as $basketDetail) {
-                    if ($basketDetail->getIdProduct() == $product) {
-                        $productInBasket = true;
-                        $basketDetail->setQuantity($basketDetail->getQuantity() + 1);
+            if (!$this->getUser()) {
+                // Si l'utilisateur n'est pas connecté, on affiche un modal pour le connecter
+                return $this->redirectToRoute('app_login');
+            } else {
+                // Récupérer le panier de l'utilisateur
+                $basket =  $entityManager->getRepository(Order::class)->findOneBy(
+                    [
+                        'idUser' => $this->getUser()->getId(),
+                        'valid' => false
+                    ]
+                );
+    
+                if ($basket) {
+                    // Vérifier si le produit est déjà dans le panier
+                    $basketDetails = $basket->getCommandLines();
+                    $productInBasket = false;
+                    foreach ($basketDetails as $basketDetail) {
+                        if ($basketDetail->getIdProduct() == $product) {
+                            $productInBasket = true;
+                            $basketDetail->setQuantity($basketDetail->getQuantity() + 1);
+                            $entityManager->persist($basketDetail);
+                        }
+                    }
+    
+                    // Si le produit n'est pas dans le panier, on l'ajoute
+                    if (!$productInBasket) {
+                        $basketDetail = new CommandLine();
+                        $basketDetail->setIdProduct($product);
+                        $basketDetail->setQuantity(1);
+                        $basketDetail->setIdOrder($basket);
                         $entityManager->persist($basketDetail);
                     }
-                }
-
-                // Si le produit n'est pas dans le panier, on l'ajoute
-                if (!$productInBasket) {
+                } else {
+                    // Si l'utilisateur n'a pas de panier, on en crée un
+                    $basket = new Order();
+                    $basket->setIdUser($this->getUser());
+                    $basket->setValid(false);
+                    $basket->setOrderNumber(uniqid());
+                    $basket->setDateTime(new \DateTime());
+                    $entityManager->persist($basket);
+    
                     $basketDetail = new CommandLine();
                     $basketDetail->setIdProduct($product);
                     $basketDetail->setQuantity(1);
                     $basketDetail->setIdOrder($basket);
                     $entityManager->persist($basketDetail);
                 }
-            } else {
-                // Si l'utilisateur n'a pas de panier, on en crée un
-                $basket = new Order();
-                $basket->setIdUser($this->getUser());
-                $basket->setValid(false);
-                $basket->setOrderNumber(uniqid());
-                $basket->setDateTime(new \DateTime());
-                $entityManager->persist($basket);
-
-                $basketDetail = new CommandLine();
-                $basketDetail->setIdProduct($product);
-                $basketDetail->setQuantity(1);
-                $basketDetail->setIdOrder($basket);
-                $entityManager->persist($basketDetail);
+    
+                $entityManager->flush();
             }
-
-            $entityManager->flush();
         }
+
 
         return $this->redirectToRoute('app_cart'); 
     }
