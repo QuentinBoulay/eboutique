@@ -113,6 +113,11 @@
                 <p>Code produit : {{ product.id }}</p>
                 <p class="available">Disponibilité : {{ product.available ? 'En stock' : 'Sur commande' }}</p>
 
+                {# Si l'utilisateur n'est pas connecter, on met un message pour lui dire de se connecter pour créer un panier #}
+                {% if not app.user %}
+                    <p class="no-user">Vous devez être connecté pour ajouter des articles à votre panier</p>
+                {% endif %}
+
                 {{ include('product/_add_to_cart_form.html.twig') }}
             </div>
         </div>

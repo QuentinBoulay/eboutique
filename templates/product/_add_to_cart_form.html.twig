@@ -1,8 +1,3 @@
-{# Si l'utilisateur n'est pas connecter, on met un message pour lui dire de se connecter pour créer un panier #}
-{% if not app.user %}
-    <p class="no-user">Vous devez être connecté pour ajouter des articles à votre panier</p>
-{% endif %}
-
 <form method="post" action="{{ path('app_cart_add', {'id': product.id}) }}">
     <input type="hidden" name="_token" value="{{ csrf_token('add_to_cart' ~ product.id) }}">
     <button type="submit" class="btn-gold add-to-cart"><i class="fa-solid fa-cart-plus"></i>&nbsp;Ajouter au panier</button>

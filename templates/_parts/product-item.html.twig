@@ -10,9 +10,11 @@
             </div>
             <span class="category">{{ product.idCategory.name }}</span>
             
-            <div class="pointer-none">
-                {{ include('product/_add_to_cart_form.html.twig') }}
-            </div>
+            {% if app.user %}
+                <div class="pointer-none">
+                    {{ include('product/_add_to_cart_form.html.twig') }}
+                </div>
+            {% endif %} 
         </div>
     </div>
 </a>
